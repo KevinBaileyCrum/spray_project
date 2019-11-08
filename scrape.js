@@ -6,4 +6,12 @@ const cheerio = require('cheerio')
 axios.get('https://www.mountainproject.com/user/108543839/kevin-crum/ticks').then((response) => {
   // console.log(response.data)
   const $ = cheerio.load(response.data)
+  const ticksHTML = $('tr.route-row')
+  for (let i=0; i<ticksHTML.length; i++){
+    const ticksStrong = $(ticksHTML[i]).find('strong')[0]
+    if (ticksStrong) {
+      const tickName = $(ticksStrong).text()
+      console.log(tickName)
+    }
+  }
 })
