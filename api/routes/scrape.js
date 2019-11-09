@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var apiKey = require('./apiKey');
+const axios = require('axios')
 
 // // https://buttercms.com/blog/web-scraping-with-nodejs-and-cheerio
 // // for using axios and cheerio
-// const axios = require('axios')
 //p,tp const cheerio = require('cheerio')
 
 // axios.get('https://www.mountainproject.com/user/108543839/kevin-crum/ticks').then((response) => {
@@ -20,7 +21,18 @@ var router = express.Router();
 // })
 
 router.get('/', function(req, res, next) {
+  axios.get('https://www.mountainproject.com/data/get-user?', {
+    params: {
+      email: 'kevinbaileycrum@gmail.com',
+      key: apiKey.apiKey
+    }
+  })
+  .then((response) => {
+    console.log(response.data)
+    // console.log(apiKey.apiKey)
+  })
   res.render('scrape');
+    fetch('/scrape')
 });
 
 module.exports = router;
