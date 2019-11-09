@@ -21,18 +21,18 @@ const axios = require('axios')
 // })
 
 router.get('/', function(req, res, next) {
-  axios.get('https://www.mountainproject.com/data/get-user?', {
+  axios.get('https://www.mountainproject.com/data/get-ticks?', {
     params: {
       email: 'kevinbaileycrum@gmail.com',
       key: apiKey.apiKey
     }
   })
   .then((response) => {
-    console.log(response.data)
-    // console.log(apiKey.apiKey)
+    // console.log(response)
+    // console.log(response.data)
+    console.log(apiKey.apiKey)
   })
   res.render('scrape');
-    fetch('/scrape')
 });
 
 module.exports = router;
