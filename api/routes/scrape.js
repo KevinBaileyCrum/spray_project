@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var apiKey = require('./apiKey');
-const axios = require('axios')
+const express = require('express');
+const router = express.Router();
+const apiKey = require('./apiKey');
+const axios = require('axios');
 
 // // https://buttercms.com/blog/web-scraping-with-nodejs-and-cheerio
 // // for using axios and cheerio
@@ -20,19 +20,44 @@ const axios = require('axios')
 //   }
 // })
 
-router.get('/', function(req, res, next) {
-  axios.get('https://www.mountainproject.com/data/get-ticks?', {
+function getUserTick(user) {
+  console.log('the user is');
+  console.log(user);
+  axios.get('https://www.mountainproject.com/data/get-user?', {
     params: {
-      email: 'kevinbaileycrum@gmail.com',
+      userId: user,
       key: apiKey.apiKey
     }
   })
-  .then((response) => {
+    .then((response) => {
+      console.log(response.data)
+    })
+}
+
+
+
+
+router.get('/', function(req, res, next) {
+  userList = [
+    '108543839', // kevin
+    '12117' // sirius
+  ]
+  var aResponse;
+
+  // axios.get('https://www.mountainproject.com/data/get-ticks?', {
+  //   params: {
+  //     email: 'kevinbaileycrum@gmail.com',
+  //     key: apiKey.apiKey
+  //   }
+  // })
+  // .then((response) => {
     // console.log(response)
     // console.log(response.data)
-    console.log(apiKey.apiKey)
-  })
+  // })
+
+  userList.forEach(element => getUserTick(element));
   res.render('scrape');
+  // res.render(response.data);
 });
 
 module.exports = router;
