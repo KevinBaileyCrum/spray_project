@@ -4,7 +4,7 @@ const apiKey = require('./apiKey');
 const axios = require('axios');
 
 function getUserTick(user) {
-  axios.get('https://www.mountainproject.com/data/get-user?', {
+  return axios.get('https://www.mountainproject.com/data/get-user?', {
     params: {
       userId: user,
       key: apiKey.apiKey
@@ -22,12 +22,11 @@ router.get('/', function(req, res, next) {
     '12117', // sirius
     '200432149' // chris
   ];
-  var aResponse = [];
-  // userList.forEach(element => getUserTick(element));
-  userList.forEach(element => {
-    aResponse.push(getUserTick(element));
-    console.log(element);
-  })
+  var aResponse = userList.map(getUserTick);
+  Promise.all(aResponse)
+	.then(responses=>{
+	    console.log(responses)
+	})
   res.render('scrape', {
     userList: userList,
     aResponse: aResponse
