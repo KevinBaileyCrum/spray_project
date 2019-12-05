@@ -11,7 +11,6 @@ function getUserTick(user) {
     }
   })
     .then((response) => {
-      // console.log(response.data.name)
       return response.data.name;
     })
 }
@@ -24,13 +23,14 @@ router.get('/', function(req, res, next) {
   ];
   var aResponse = userList.map(getUserTick);
   Promise.all(aResponse)
-	.then(responses=>{
-	    console.log(responses)
-	})
-  res.render('scrape', {
-    userList: userList,
-    aResponse: aResponse
-  });
+    .then(responses=>{
+      console.log(responses);
+      res.render('scrape', {
+        userList: userList,
+        responses: responses
+      });
+
+    });
 });
 
 module.exports = router;
