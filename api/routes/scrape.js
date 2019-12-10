@@ -3,6 +3,12 @@ const router = express.Router();
 const apiKey = require('./apiKey');
 const axios = require('axios');
 
+var tickObj = {
+  name: '',
+  date: '',
+  grade: '',
+}
+
 function getUser(user) {
   return axios.get('https://www.mountainproject.com/data/get-user?', {
     params: {
@@ -26,8 +32,8 @@ function getTicks(user) {
   })
     .then((response) => {
       for (tick of response.data.ticks){
-        console.log(tick.routeId);
-        return axios.get('https://www.mountainproject.com/data/get-routes?', {
+        // console.log(tick.routeId);
+        axios.get('https://www.mountainproject.com/data/get-routes?', {
           params: {
             routeIds:  tick.routeId,
             key: apiKey.apiKey
@@ -38,7 +44,7 @@ function getTicks(user) {
             console.log(tick)
             // return response.data.ticks
           })
-        }
+      }
       return response.data.ticks
     })
   // return response.tick
@@ -56,7 +62,8 @@ router.get('/', function(req, res, next) {
     .then(responses=>{
       // responses = JSON.stringify(responses, null, 2);
       // console.log(bResponse);
-      console.log('resp ' + responses);
+      // console.log('resp ' + JSON.stringify(responses, null, 2));
+      console.log('resp ' + JSON.stringify(bResponse, null, 2));
 
       res.render('scrape', {
         userList: userList,
