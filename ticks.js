@@ -26,19 +26,22 @@ function TickObj(
 }
 
 mpApiGetTicks = async (userId) => {
-    console.log(userId)
-    return await axios.get('https://www.mountainproject.com/data/get-ticks?', {
-        params: {
-            userId: userId,
-            key: apiKey.apiKey,
-            startPos: 115
-        }
-    })
-    .then((response) => {
-        console.log('axios here')
-        console.log(response.data)
-        return response.data.ticks
-    })
+    try {
+        await axios.get('https://www.mountainproject.com/data/get-ticks?', {
+            params: {
+                userId: userId,
+                key: apiKey.apiKey,
+                startPos: 115
+            }
+        })
+        .then((response) => {
+            console.log('axios here')
+            // console.log(response.data)
+            return response.data.ticks
+        })
+    } catch (error) {
+        console.error(`mpApiGetTicks axios error ${error}`)
+    }
 }
 
 const getTicks = async (userId) => {
@@ -46,7 +49,8 @@ const getTicks = async (userId) => {
     console.log('there')
     const mpTicksRes = await mpApiGetTicks(userId)
     if (mpTicksRes) {
-        console.log(`mpTicksRes ${mpTicksRes}`)
+        // console.log(`mpTicksRes ${mpTicksRes}`)
+        return mpTicksRes
     }
 }
 
@@ -60,9 +64,10 @@ router.get('/', function(req, res) {
 
     var friendList = ['108543839'] // kevin
     var TickList = []
-    getTicks(friendList[0]).then(response => console.log('here'))
-    // mpApiGetTicks(friendList[0]).then((response) => console.log(response))
-
+    getTicks(friendList[0]).then((response) => {
+        console.log('here')
+        res.send(response)
+    })
 })
 
 module.exports = router
