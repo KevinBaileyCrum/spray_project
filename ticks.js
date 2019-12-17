@@ -47,8 +47,8 @@ mpApiGetTicks = async (userId) => {
         return await axios.get('https://www.mountainproject.com/data/get-ticks?', {
             params: {
                 userId: userId,
-                key: apiKey.apiKey,
-                startPos: 115
+                key: apiKey.apiKey
+                // startPos: 115
             }
         })
         .then((response) => {
@@ -86,7 +86,7 @@ const getTicks = async (userId) => {
         // console.log('.....................')
         // console.log(`mpRoutesRes.name ${mpRoutesRes[0].name}`)
         tickList[route].routeName = mpRoutesRes[0].name
-        tickList[route].routeGrade = mpRoutesRes[0].grade
+        tickList[route].routeGrade = mpRoutesRes[0].rating
         // console.log(`for loop ${JSON.stringify(tickList[route])}`)
     }
     return tickList
