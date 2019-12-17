@@ -47,8 +47,8 @@ mpApiGetTicks = async (userId) => {
         return await axios.get('https://www.mountainproject.com/data/get-ticks?', {
             params: {
                 userId: userId,
-                key: apiKey.apiKey
-                // startPos: 115
+                key: apiKey.apiKey,
+                startPos: 115
             }
         })
         .then((response) => {
