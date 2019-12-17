@@ -15,7 +15,6 @@ function TickObj(
     routeGrade = null
 ){
     this.userName = userName
-    this.routeGrade = routeName
     this.routeId = routeId
     this.date = date
     this.style = style
@@ -25,9 +24,20 @@ function TickObj(
     this.routeGrade = routeGrade
 }
 
+// mpApiGetRoutes = async (routeId) => {
+//     try {
+//         return await axios.get('https://www.mountainproject.com/data/get-routes?', {
+//             params: {
+//                 routeId:
+//                 key: apiKey.apiKey
+//             }
+//         })
+
+// }
+
 mpApiGetTicks = async (userId) => {
     try {
-        await axios.get('https://www.mountainproject.com/data/get-ticks?', {
+        return await axios.get('https://www.mountainproject.com/data/get-ticks?', {
             params: {
                 userId: userId,
                 key: apiKey.apiKey,
@@ -45,11 +55,26 @@ mpApiGetTicks = async (userId) => {
 }
 
 const getTicks = async (userId) => {
+    var tickList = []
     console.log(userId)
     console.log('there')
     const mpTicksRes = await mpApiGetTicks(userId)
     if (mpTicksRes) {
         // console.log(`mpTicksRes ${mpTicksRes}`)
+        for (res in mpTicksRes){
+            var tick = new TickObj()
+            console.log('tick')
+            console.log(mpTicksRes[res])
+            tick.routeId = mpTicksRes[res].routeId
+            tick.date = mpTicksRes[res].date
+            tick.style = mpTicksRes[res].style
+            tick.notes = mpTicksRes[res].notes
+            tick.stars = mpTicksRes[res].userRating
+
+            console.log(tick)
+            tickList.push(tick)
+        }
+        console.log(`ticklist test ${tickList}`)
         return mpTicksRes
     }
 }
@@ -63,7 +88,6 @@ router.get('/', function(req, res) {
     //     getRoute info on tick
 
     var friendList = ['108543839'] // kevin
-    var TickList = []
     getTicks(friendList[0]).then((response) => {
         console.log('here')
         res.send(response)
