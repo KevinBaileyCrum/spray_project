@@ -1,20 +1,38 @@
+// import libraries
 const express = require('express')
+const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const app = express()
 const port = 9000
 
+// import db models
+const {User} = require('./models/user')
+
 // import endpoints
 const ticks = require('./routes/ticks.js')
 
-// connnect to databse
-// mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+// env
 const DATABASE_URL= 'mongodb://localhost/test'
+app.use(bodyParser())
+
+// connnect to databse
 mongoose.connect(DATABASE_URL, { useUnifiedTopology: true, useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('connected to database'))
 console.log(db)
+
+// tutorial blog
+app.post('/user', (req, res) => {
+    const user = new User({
+        email: req.body.email,
+        password: req.body.password
+    }).save((err, response) => {
+        if(err) res.status(400).send(err)
+        res.status(200).send(response)
+    })
+})
 
 // route endpoints
 app.use('/', ticks) // can rename enpoint
