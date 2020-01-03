@@ -47,8 +47,8 @@ mpApiGetTicks =  (userId) => {
         return axios.get('https://www.mountainproject.com/data/get-ticks?', {
             params: {
                 userId: userId,
-                key: apiKey.apiKey
-                // startPos: 115
+                key: apiKey.apiKey,
+                startPos: 115
             }
         })
         .then((response) => {
@@ -72,7 +72,7 @@ const getTicks =  (userId) => {
 		tick.style = mpTicksRes[res].style
 		tick.notes = mpTicksRes[res].notes
 		tick.stars = mpTicksRes[res].userRating
-		
+
 		// console.log(tick)
 		tickList.push(tick)
 	    }
@@ -84,14 +84,14 @@ const getTicks =  (userId) => {
 		    //_.zip(results,tickList).forEach((t)
 		    for (route in results){
 			mpRoutesRes=results[route]
-			tickList[route].routeName = mpRoutesRes[0].name			    
+			tickList[route].routeName = mpRoutesRes[0].name
 			tickList[route].routeGrade = mpRoutesRes[0].rating
 		    }
 		    return tickList
 		})
 	})
 }
-    
+
 router.get('/', function(req, res) {
 
     // assuming already have userID

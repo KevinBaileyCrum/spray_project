@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const API = 'http://localhost:9000/'
 
-class Tick extends React.Component{
+class TickList extends React.Component{
     state = {
         ticks: []
     }
@@ -22,51 +22,32 @@ class Tick extends React.Component{
 
     render() {
         return (
-            <ul>
+            <div>
                 { this.state.ticks.map(tick =>
-                    <div>
-                        <li>{tick.userName}</li>
-                        <li>{tick.routeId}</li>
-                        <li>{tick.date}</li>
-                        <li>{tick.style}</li>
-                        <li>{tick.notes}</li>
-                        <li>{tick.stars}</li>
-                        <li>{tick.routeName}</li>
-                        <li>{tick.routeGrade}</li>
-                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>{tick.userName}</td>
+                                <td>{tick.routeId}</td>
+                                <td>{tick.date}</td>
+                                <td>{tick.style}</td>
+                                <td>{tick.notes}</td>
+                                <td>{tick.stars}</td>
+                                <td>{tick.routeName}</td>
+                                <td>{tick.routeGrade}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 )}
-            </ul>
+            </div>
         )
     }
 }
 
 function App() {
     return (
-        <Tick />
+        <TickList />
     );
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//         <Tick />
-//       </header>
-//     </div>
-//   );
-// }
-
 export default App;
-
