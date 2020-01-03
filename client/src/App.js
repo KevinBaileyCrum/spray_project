@@ -23,7 +23,18 @@ class Tick extends React.Component{
     render() {
         return (
             <ul>
-                { this.state.ticks.map(tick => <li>{tick.routeName}</li>) }
+                { this.state.ticks.map(tick =>
+                    <div>
+                        <li>{tick.userName}</li>
+                        <li>{tick.routeId}</li>
+                        <li>{tick.date}</li>
+                        <li>{tick.style}</li>
+                        <li>{tick.notes}</li>
+                        <li>{tick.stars}</li>
+                        <li>{tick.routeName}</li>
+                        <li>{tick.routeGrade}</li>
+                    </div>
+                )}
             </ul>
         )
     }
