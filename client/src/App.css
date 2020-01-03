@@ -1,7 +1,12 @@
 .tick-card-list {
     display: flex;
-    flex-direction: column;
-    /* justify-content: space-around; */
+    flex-direction: column; 
 }
 
+.tick-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
 
+}

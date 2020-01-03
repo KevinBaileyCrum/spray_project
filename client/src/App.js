@@ -21,24 +21,20 @@ class TickList extends React.Component{
 
     render() {
         return (
-                    <div className="tick-card-list">
+            <div className="tick-card-list">
                 { this.state.ticks.map(tick =>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>{tick.userName}</td>
-                                <td>{tick.routeId}</td>
-                                <td>{tick.date}</td>
-                                <td>{tick.style}</td>
-                                <td>{tick.notes}</td>
-                                <td>{tick.stars}</td>
-                                <td>{tick.routeName}</td>
-                                <td>{tick.routeGrade}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div className="tick-card" key={tick.tickId}>
+                    <div className="tick-card-userName">{tick.userName}</div>
+                    <div className="tick-card-routeId">{tick.routeId}</div>
+                    <div className="tick-card-date">{tick.date}</div>
+                    <div className="tick-card-style">{tick.style}</div>
+                    <div className="tick-card-notes">{tick.notes}</div>
+                    <div className="tick-card-stars">{tick.stars}</div>
+                    <div className="tick-card-routeName">{tick.routeName}</div>
+                    <div className="tick-card-routeGrade">{tick.routeGrade}</div>
+                </div>
                 )}
-                    </div>
+            </div>
         )
     }
 }
