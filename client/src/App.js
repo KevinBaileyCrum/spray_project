@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 
@@ -22,7 +21,7 @@ class TickList extends React.Component{
 
     render() {
         return (
-            <div>
+                    <div className="tick-card-list">
                 { this.state.ticks.map(tick =>
                     <table>
                         <tbody>
@@ -39,7 +38,7 @@ class TickList extends React.Component{
                         </tbody>
                     </table>
                 )}
-            </div>
+                    </div>
         )
     }
 }
