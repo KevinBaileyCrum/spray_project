@@ -20,6 +20,10 @@ class Registration extends React.Component {
                   <input type="password" id="password" onblur="checkInput(this)" />
                   <label for="password">Password</label>
                </div>
+               <div class="input-group">
+                  <input type="password" id="password2" onblur="checkInput(this)" />
+                  <label for="password2">re-enter password</label>
+               </div>
                <input type="submit" value="Enter" />
             </form>
          </div>

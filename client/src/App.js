@@ -12,8 +12,8 @@ function App() {
    return (
       <div>
          <Registration />
-         <Login />
-         <TickList />
+         {/* <Login /> */}
+         {/* <TickList /> */}
       </div>
    );
 }
