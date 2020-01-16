@@ -1,5 +1,5 @@
 import React from 'react'
-import './../App.css'  // consider localized css
+import './ticklist.css'  // consider localized css
 import axios from 'axios'
 
 const API = 'http://localhost:9000/' // pass this to component from app?
