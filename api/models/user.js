@@ -2,6 +2,12 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
+   sprayName:{
+      type: String,
+      required: true,
+      unique: 1,
+      trim: true
+   },
    email:{
       type: String,
       required: true,

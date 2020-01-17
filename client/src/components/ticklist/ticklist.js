@@ -2,7 +2,7 @@ import React from 'react'
 import './ticklist.css'  // consider localized css
 import axios from 'axios'
 
-const API = 'http://localhost:9000/' // pass this to component from app?
+const API = 'http://localhost:9000/ticks' // pass this to component from app?
 
 class TickList extends React.Component{
     state = {
