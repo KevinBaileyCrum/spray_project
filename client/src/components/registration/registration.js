@@ -1,73 +1,152 @@
-import validator from 'validator';
+import React, { Component } from 'react';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import Button from 'react-validation/build/button'
-import React, { Component } from 'react';
+import Button from 'react-validation/build/button';
+import Textarea from 'react-validation/build/textarea';
+import Select from 'react-validation/build/select';
 
-const required = (value) => {
-   if (!value.toString().trim().length) {
-      // We can return string or jsx as the 'error' prop for the validated Component
-      return 'require';
-   }
+import { isEmail } from 'validator';
+
+const required = (value, props) => {
+  if (!value || (props.isCheckable && !props.checked)) {
+    return <span className="form-error is-visible">Required</span>;
+  }
 };
 
 const email = (value) => {
-   if (!validator.isEmail(value)) {
-      return `${value} is not a valid email.`
-   }
+  if (!isEmail(value)) {
+    return <span className="form-error is-visible">${value} is not a valid email.</span>;
+  }
 };
 
-const lt = (value, props) => {
-   // get the maxLength from component's props
-   if (value.toString().trim().length > props.maxLength) {
-      // Return jsx
-      return <span className="error">The value exceeded {props.maxLength} symbols.</span>
-   }
+const isEqual = (value, props, components) => {
+  const bothUsed = components.password[0].isUsed && components.confirm[0].isUsed;
+  const bothChanged = components.password[0].isChanged && components.confirm[0].isChanged;
+
+  if (bothChanged && bothUsed && components.password[0].value !== components.confirm[0].value) {
+    return <span className="form-error is-visible">Passwords are not equal.</span>;
+  }
 };
-
-const password = (value, props, components) => {
-   // NOTE: Tricky place. The 'value' argument is always current component's value.
-   // So in case we're 'changing' let's say 'password' component - we'll compare it's value with 'confirm' value.
-   // But if we're changing 'confirm' component - the condition will always be true
-   // If we need to always compare own values - replace 'value' with components.password[0].value and make some magic with error rendering.
-   if (value !== components['confirm'][0].value) { // components['password'][0].value !== components['confirm'][0].value
-      // 'confirm' - name of input
-      // components['confirm'] - array of same-name components because of checkboxes and radios
-      return <span className="error">Passwords are not equal.</span>
-   }
-};
-
-
 
 class Registration extends Component {
-   render() {
-      return (
-         <Form>
+  handleClick = () => {
+    this.form.validateAll();
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log(event);
+  };
+
+  render() {
+    return (
+      <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}>
+        <div className="row">
+          <div className="small-12 columns">
             <h3>Registration</h3>
-            <div>
-               <label>
-                  Email*
-                  <Input value='email@email.com' name='email' validations={[required, email]}/>
-               </label>
-            </div>
-            <div>
-               <label>
-                  Password*
-                  <Input type='password' name='password' validations={[required]}/>
-               </label>
-            </div>
-            <div>
-               <Button>Submit</Button>
-            </div>
-         </Form>
-      )
-   }
+            <button className="button" type="button" onClick={this.handleClick}>Validate all</button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="small-12 medium-6 columns">
+            <label>
+              Firstname*
+              <Input
+                placeholder="Firstname"
+                type="text"
+                name="firstname"
+                validations={[required]}
+              />
+            </label>
+          </div>
+          <div className="small-12 medium-6 columns">
+            <label>
+              Lastname*
+              <Input
+                placeholder="Lastname"
+                type="text"
+                name="lastname"
+                validations={[required]}
+              />
+            </label>
+          </div>
+        </div>
+        <div className="row">
+          <div className="small-12 medium-6 columns">
+            <label>
+              Email*
+              <Input
+                placeholder="Email"
+                type="email"
+                name="email"
+                validations={[required, email]}
+              />
+            </label>
+          </div>
+          <div className="small-12 medium-6 columns">
+            <label>
+              City*
+              <Select
+                name="city"
+                validations={[required]}
+              >
+                <option value="">Choose your city</option>
+                <option value={1}>London</option>
+                <option value={2}>Kyiv</option>
+                <option value={3}>New York</option>
+              </Select>
+            </label>
+          </div>
+        </div>
+        <div className="row">
+          <div className="small-12 medium-6 columns">
+            <label>
+              Password*
+              <Input
+                placeholder="Password"
+                type="password"
+                name="password"
+                validations={[required, isEqual]}
+              />
+            </label>
+          </div>
+          <div className="small-12 medium-6 columns">
+            <label>
+              Confirm password*
+              <Input
+                placeholder="Confirm password"
+                type="password"
+                name="confirm"
+                validations={[required, isEqual]}
+              />
+            </label>
+          </div>
+        </div>
+        <div className="row">
+          <div className="small-12 medium-6 columns">
+            <label>
+              I accept policy*
+              <Input
+                type="checkbox"
+                name="policy"
+                value="1"
+                validations={[required]}
+              />
+            </label>
+          </div>
+        </div>
+        <div className="row">
+          <div className="small-12 medium-6 columns">
+            <Button className="button">Submit</Button>
+          </div>
+        </div>
+      </Form>
+    )
+  }
 }
 
 export default Registration
-
-
-
 
 
 
@@ -85,7 +164,7 @@ export default Registration
 // const required = (value, props) => {
 //    if (!value) {
 //       prompt("fuck you")
-//       return <span> Required</span>;
+//       return <span> Required</span
 
 //    }
 // };
