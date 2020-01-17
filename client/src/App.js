@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import axios from 'axios'
 
-import TickList from './components/ticklist/ticklist'
+// import TickList from './components/ticklist/ticklist'
 import Login from './components/login/login'
 import Registration from './components/registration/registration'
 
@@ -12,7 +12,7 @@ function App() {
    return (
       <div>
          <Registration />
-         {/* <Login /> */}
+         <Login />
          {/* <TickList /> */}
       </div>
    );
