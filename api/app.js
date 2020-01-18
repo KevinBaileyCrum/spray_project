@@ -2,8 +2,13 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+
 const app = express()
-const port = 9000
+app.use(bodyParser.urlencoded({
+   extended: true
+}))
+app.use(bodyParser.json());
 
 // import db models
 const {User} = require('./models/user')
@@ -13,10 +18,8 @@ const ticks = require('./routes/ticks.js')
 const register = require('./routes/register.js')
 
 // env
+const port = 9000
 const DATABASE_URL= 'mongodb://localhost/test'
-// app.use(cors({
-//     origin: 'localhost:3000'
-// }))
 app.use(cors())
 
 // connnect to databse
