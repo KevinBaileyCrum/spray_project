@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Form from 'react-validation/build/form'
 import Input from 'react-validation/build/input'
 import Button from 'react-validation/build/button'
 import Textarea from 'react-validation/build/textarea'
 import Select from 'react-validation/build/select'
-
 import { isEmail } from 'validator'
+
+const API = 'http://localhost:9000/register' // pass this to component from app?
+
 
 const required = (value, props) => {
    if (!value || (props.isCheckable && !props.checked)) {
@@ -31,8 +34,12 @@ const isEqual = (value, props, components) => {
 class Registration extends Component {
    handleSubmit = (event) => {
       event.preventDefault()
-
-      console.log(event)
+      axios.post(API, {
+         sprayName: event.target.sprayName.value,
+         email: event.target.email.value,
+         password: event.target.password.value,
+         mpId: event.target.mpId.value,
+      })
    }
 
    render() {
@@ -44,7 +51,7 @@ class Registration extends Component {
                <Input
                   placeholder="choose a real or fake name, it's all for fun"
                   type="text"
-                  name="spray"
+                  name="sprayName"
                   validations={[required]}
                />
             </label>
