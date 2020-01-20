@@ -32,14 +32,18 @@ const isEqual = (value, props, components) => {
 }
 
 class Registration extends Component {
+
    handleSubmit = (event) => {
       event.preventDefault()
       axios.post(API, {
          sprayName: event.target.sprayName.value,
          email: event.target.email.value,
          password: event.target.password.value,
-         mpId: event.target.mpId.value,
+         mpId: event.target.mpId.value
       })
+      .catch(error => {
+          console.log(error.response)
+      });
    }
 
    render() {

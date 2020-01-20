@@ -36,6 +36,10 @@ router.post('/', function(req, res) {
          newUser.save(function(err){
             if (err){
                console.log(err)
+               if (err.code === 11000){
+                  console.log('dup key found')
+                  res.status(401).send('acount already exists with that email')
+               }
                return
             } else {
                console.log('success')
