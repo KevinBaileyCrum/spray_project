@@ -32,6 +32,12 @@ const isEqual = (value, props, components) => {
 }
 
 class Registration extends Component {
+   constructor(props){
+      super(props)
+      this.state = {
+         error: ''
+      }
+   }
 
    handleSubmit = (event) => {
       event.preventDefault()
@@ -42,13 +48,16 @@ class Registration extends Component {
          mpId: event.target.mpId.value
       })
       .catch(error => {
-          console.log(error.response)
+         console.log(error.response)
+         this.setState({error: error.response.data})
       });
    }
 
    render() {
+      const { error } = this.state
       return (
          <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}>
+            <span> { error } </span>
             <h3>Registration</h3>
             <label>
                Spray Name*

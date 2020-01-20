@@ -10,7 +10,6 @@ class TickList extends React.Component{
    }
 
    componentDidMount() {
-      console.log('here')
       axios.get(API)
          .then(res => {
             const ticks = res.data
