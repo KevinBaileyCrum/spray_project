@@ -4,7 +4,10 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
+// express
 const app = express()
+
+// parse frontend requests
 app.use(bodyParser.urlencoded({
    extended: true
 }))
@@ -16,6 +19,7 @@ const {User} = require('./models/user')
 // import endpoints
 const ticks = require('./routes/ticks.js')
 const register = require('./routes/register.js')
+const login = require('./routes/login.js')
 
 // env
 const port = 9000
@@ -31,5 +35,6 @@ db.once('open', () => console.log('connected to database'))
 // route endpoints
 app.use('/ticks', ticks)
 app.use('/register', register)
+app.use('/login', login)
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Form from 'react-validation/build/form'
 import Input from 'react-validation/build/input'
 import Button from 'react-validation/build/button'
 import Textarea from 'react-validation/build/textarea'
 import Select from 'react-validation/build/select'
-
 import { isEmail } from 'validator'
+
+const API = 'http://localhost:9000/login' // pass this to component from app?
 
 const required = (value, props) => {
    if (!value || (props.isCheckable && !props.checked)) {
@@ -19,19 +21,21 @@ const email = (value) => {
    }
 }
 
-const isEqual = (value, props, components) => {
-   const bothUsed = components.password[0].isUsed && components.confirm[0].isUsed
-   const bothChanged = components.password[0].isChanged && components.confirm[0].isChanged
-
-   if (bothChanged && bothUsed && components.password[0].value !== components.confirm[0].value) {
-      return <span className="form-error is-visible">Passwords are not equal.</span>
-   }
-}
 
 class Login extends Component {
+   constructor(props){
+      super(props)
+      this.state = {
+         error: ''
+      }
+   }
+
    handleSubmit = (event) => {
       event.preventDefault()
-
+      axios.post(API, {
+         email: event.target.email.value,
+         password: event.target.password.value
+      })
       console.log(event)
    }
 
@@ -54,16 +58,7 @@ class Login extends Component {
                   placeholder="Password"
                   type="password"
                   name="password"
-                  validations={[required, isEqual]}
-               />
-            </label>
-            <label>
-               Confirm password*
-               <Input
-                  placeholder="Confirm password"
-                  type="password"
-                  name="confirm"
-                  validations={[required, isEqual]}
+                  validations={[required]}
                />
             </label>
             <Button className="button">Login</Button>
