@@ -17,3 +17,5 @@ install local instance of mongoDB by following
 cd ./clinet run `npm start`
 runs port 3000
 
+#### Submit a PR
+I am open to any suggestions or pull requests
