@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { Redirect, Route } from 'react-router-dom';
 
 /* ionic */
@@ -24,8 +23,6 @@ import '@ionic/react/css/display.css';
 import TickList from './components/ticklist/ticklist'
 import Login from './components/login/login'
 import Registration from './components/registration/registration'
-
-const API = 'http://localhost:9000/'
 
 // function App() {
 //    return (

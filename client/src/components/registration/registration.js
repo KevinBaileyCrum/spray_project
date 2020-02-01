@@ -1,11 +1,25 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import Form from 'react-validation/build/form'
-import Input from 'react-validation/build/input'
-import Button from 'react-validation/build/button'
-import Textarea from 'react-validation/build/textarea'
-import Select from 'react-validation/build/select'
+// import Form from 'react-validation/build/form'
+// import Input from 'react-validation/build/input'
+// import Button from 'react-validation/build/button'
+// import Textarea from 'react-validation/build/textarea'
+// import Select from 'react-validation/build/select'
 import { isEmail } from 'validator'
+
+import {
+   IonContent,
+   IonHeader,
+   IonPage,
+   IonTitle,
+   IonToolbar,
+   IonItem,
+   IonLabel,
+   IonInput,
+   IonCard,
+   IonCardHeader,
+   IonCardContent
+} from '@ionic/react';
 
 const API = 'http://localhost:9000/register' // pass this to component from app?
 
@@ -47,74 +61,74 @@ class Registration extends Component {
          password: event.target.password.value,
          mpId: event.target.mpId.value
       })
-      .catch(error => {
-         console.log(error.response)
-         this.setState({error: error.response.data})
-      });
+         .catch(error => {
+            console.log(error.response)
+            this.setState({error: error.response.data})
+         });
    }
 
    render() {
       const { error } = this.state
       return (
-         <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}>
-            <span> { error } </span>
-            <h3>Registration</h3>
-            <label>
-               Spray Name*
-               <Input
-                  placeholder="choose a real or fake name, it's all for fun"
-                  type="text"
-                  name="sprayName"
-                  validations={[required]}
-               />
-            </label>
-            <label>
-               Mountain Project User Id Number*
-               <Input
-                  placeholder="the numbers in your url when you go to your profile"
-                  type="text"
-                  name="mpId"
-                  validations={[required]}
-               />
-            </label>
-            <label>
-               Email*
-               <Input
-                  placeholder="Email"
-                  type="email"
-                  name="email"
-                  validations={[required, email]}
-               />
-            </label>
-            <label>
-               Password*
-               <Input
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  validations={[required, isEqual]}
-               />
-            </label>
-            <label>
-               Confirm password*
-               <Input
-                  placeholder="Confirm password"
-                  type="password"
-                  name="confirm"
-                  validations={[required, isEqual]}
-               />
-            </label>
-            <label>
-               I accept policy to only spray when I flash folks' projects in my crocs*
-               <Input
-                  type="checkbox"
-                  name="policy"
-                  value="1"
-                  validations={[required]}
-               />
-            </label>
-            <Button className="button">Submit</Button>
-         </Form>
+
+         <IonPage>
+            <IonCard>
+               <IonCardHeader> Registration </IonCardHeader>
+               <IonCardContent>
+                  {/* <IonContent> */}
+                  {/* <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}> */}
+                  <form onSubmit={this.handleSubmit}>
+                     <span> { error } </span>
+                     <IonItem>
+                        <IonLabel>
+                           Spray Name*
+                        </IonLabel>
+                        <IonInput
+                           required type='text'
+                           name='sprayName'
+                        />
+                     </IonItem>
+                     <IonItem>
+                        <IonLabel>
+                           Mountain Project User Id*
+                        </IonLabel>
+                        <IonInput
+                           required type='text'
+                           name='mpId'
+                        />
+                     </IonItem>
+                     <IonItem>
+                        <IonLabel>
+                           Email*
+                        </IonLabel>
+                        <IonInput
+                           required type='text'
+                           name='mpId'
+                        />
+                     </IonItem>
+                     <IonItem>
+                        <IonLabel>
+                           Password*
+                        </IonLabel>
+                        <IonInput
+                           required type="password"
+                           name="password"
+                        />
+                     </IonItem>
+                     <IonItem>
+                        <IonLabel>
+                           Confirm password*
+                        </IonLabel>
+                        <IonInput
+                           required type="password"
+                           name="confirm"
+                        />
+                     </IonItem>
+                     <ion-button type='submit'>Submit</ion-button>
+                  </form>
+               </IonCardContent>
+            </IonCard>
+         </IonPage>
       )
    }
 }
