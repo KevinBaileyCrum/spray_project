@@ -27,7 +27,11 @@ const DATABASE_URL= 'mongodb://localhost/test'
 app.use(cors())
 
 // connnect to databse
-mongoose.connect(DATABASE_URL, { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect(DATABASE_URL, {
+   useUnifiedTopology: true,
+   useNewUrlParser: true,
+   useCreateIndex: true
+})
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('connected to database'))

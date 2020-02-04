@@ -8,53 +8,60 @@ import axios from 'axios'
 import { isEmail } from 'validator'
 
 import {
-   IonContent,
-   IonHeader,
    IonPage,
-   IonTitle,
-   IonToolbar,
    IonItem,
    IonLabel,
    IonInput,
    IonCard,
    IonCardHeader,
-   IonCardContent
+   IonCardContent,
+   IonAlert
 } from '@ionic/react';
 
 const API = 'http://localhost:9000/register' // pass this to component from app?
 
+// const email = (value) => {
+//    if (!isEmail(value)) {
+//       return <span className="form-error is-visible">{value} is not a valid email.</span>
+//    }
+// }
 
-const required = (value, props) => {
-   if (!value || (props.isCheckable && !props.checked)) {
-      return <span className="form-error is-visible">Required</span>
-   }
-}
+// const isEqual = (value, props, components) => {
+//    const bothUsed = components.password[0].isUsed && components.confirm[0].isUsed
+//    const bothChanged = components.password[0].isChanged && components.confirm[0].isChanged
 
-const email = (value) => {
-   if (!isEmail(value)) {
-      return <span className="form-error is-visible">{value} is not a valid email.</span>
-   }
-}
-
-const isEqual = (value, props, components) => {
-   const bothUsed = components.password[0].isUsed && components.confirm[0].isUsed
-   const bothChanged = components.password[0].isChanged && components.confirm[0].isChanged
-
-   if (bothChanged && bothUsed && components.password[0].value !== components.confirm[0].value) {
-      return <span className="form-error is-visible">Passwords are not equal.</span>
-   }
-}
+//    if (bothChanged && bothUsed && components.password[0].value !== components.confirm[0].value) {
+//       return <span className="form-error is-visible">Passwords are not equal.</span>
+//    }
+// }
 
 class Registration extends Component {
    constructor(props){
       super(props)
       this.state = {
+         sprayName: '',
+         email: '',
+         mpId: '',
+         password: '',
+         confirmPassword: '',
+         sprayNameError: '',
+         emailError: '',
+         passwordError: '',
          error: ''
       }
    }
 
+   validate = () => {
+      let sprayNameError = ''
+      let emailError = ''
+      let passwordError = ''
+
+      if (!this.
+   }
+
    handleSubmit = (event) => {
       event.preventDefault()
+      const isValid() = this.validate()
       axios.post(API, {
          sprayName: event.target.sprayName.value,
          email: event.target.email.value,
@@ -78,7 +85,8 @@ class Registration extends Component {
                   {/* <IonContent> */}
                   {/* <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}> */}
                   <form onSubmit={this.handleSubmit}>
-                     <span> { error } </span>
+                     {/* <span> { error } </span> */}
+                     <
                      <IonItem>
                         <IonLabel>
                            Spray Name*
