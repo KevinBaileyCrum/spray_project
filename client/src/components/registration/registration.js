@@ -15,7 +15,8 @@ import {
    IonCard,
    IonCardHeader,
    IonCardContent,
-   IonAlert
+   IonAlert,
+   IonNote
 } from '@ionic/react';
 
 const API = 'http://localhost:9000/register' // pass this to component from app?
@@ -45,6 +46,7 @@ class Registration extends Component {
          password: '',
          confirmPassword: '',
          sprayNameError: '',
+         mpIdError: '',
          emailError: '',
          passwordError: '',
          error: ''
@@ -54,39 +56,82 @@ class Registration extends Component {
    }
 
    validate = () => {
+      console.log('validate')
       let sprayNameError = ''
+      let mpIdError = ''
       let emailError = ''
       let passwordError = ''
 
-      // if (!this.
+      if (!this.state.sprayName) {
+         sprayNameError = 'sprayName cannot be blank'
+      } else {
+         const name = this.state.sprayName
+         let re = /^\S+$/
+         if (!re.test(name)){
+            sprayNameError = 'sprayName must be a combination of two or more nonwhitespace characters'
+         }
+      }
+
+      if (!this.state.mpIdError) {
+         mpIdError = 'remember who you really are'
+      } else {
+         const mpId = this.state.mpId
+         let re =  /^d{9}/
+         if (!re.test(mpId)){
+            mpIdError = 'please enter your nine digit Mountain Project ID'
+         }
+      }
+
+      if (!this.state.email) {
+         emailError = 'you shall not pass'
+      } else {
+         if (!this.state.email.includes('@')) {
+            emailError = 'invalid email'
+         }
+      }
+
+      if (!(this.state.password || this.state.confirmPassword)) {
+         passwordError = 'please enter and confirm your password'
+      } else {
+         if (this.state.password != this.state.confirmPassword) {
+            passwordError = 'passwords dont match'
+         }
+      }
+
+      if (sprayNameError || emailError || passwordError){
+         this.setState({ sprayNameError, emailError, passwordError })
+         return false
+      }
+
    }
 
    handleChange(event) {
-      this.setState({ sprayName: event.target.value })
       console.log('changed')
-      console.log(event)
       const name = event.target.name
       const value = event.target.value
 
       this.setState({
          [name]: value
       })
+      console.log(this.state)
    }
 
 
    handleSubmit = (event) => {
       event.preventDefault()
-      // const isValid() = this.validate()
-      axios.post(API, {
-         sprayName: event.target.sprayName.value,
-         email: event.target.email.value,
-         password: event.target.password.value,
-         mpId: event.target.mpId.value
-      })
-         .catch(error => {
-            console.log(error.response)
-            this.setState({error: error.response.data})
-         });
+      const isValid = this.validate()
+      console.log(this.state)
+
+      // axios.post(API, {
+      //    sprayName: event.target.sprayName.value,
+      //    email: event.target.email.value,
+      //    password: event.target.password.value,
+      //    mpId: event.target.mpId.value
+      // })
+      //    .catch(error => {
+      //       console.log(error.response)
+      //       this.setState({error: error.response.data})
+      //    });
    }
 
    render() {
@@ -101,51 +146,75 @@ class Registration extends Component {
                   {/* <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}> */}
                   <form onSubmit={this.handleSubmit}>
                      {/* <span> { error } </span> */}
+
                      <IonItem>
                         <IonLabel>
                            Spray Name*
                         </IonLabel>
                         <IonInput
-                           required type='text'
+                           type= 'text'
                            name='sprayName'
                            value={this.state.sprayName}
                            onIonBlur={this.handleChange}
                         />
                      </IonItem>
+                     <IonNote slot='end' color='danger'>
+                        {this.state.sprayNameError}
+                     </IonNote>
+
                      <IonItem>
                         <IonLabel>
                            Mountain Project User Id*
                         </IonLabel>
                         <IonInput
-                           required type='text'
+                           type='text'
                            name='mpId'
+                           value={this.state.mpId}
+                           onIonBlur={this.handleChange}
                         />
                      </IonItem>
+                     <IonNote slot='end' color='danger'>
+                        {this.state.mpIdError}
+                     </IonNote>
+
                      <IonItem>
                         <IonLabel>
                            Email*
                         </IonLabel>
                         <IonInput
-                           required type='text'
-                           name='mpId'
+                           type='text'
+                           name='email'
+                           value={this.state.email}
+                           onIonBlur={this.handleChange}
                         />
                      </IonItem>
+                     <IonNote slot='end' color='danger'>
+                        {this.state.emailError}
+                     </IonNote>
+
                      <IonItem>
                         <IonLabel>
                            Password*
                         </IonLabel>
                         <IonInput
-                           required type="password"
+                           type="password"
                            name="password"
+                           value={this.state.password}
+                           onIonBlur={this.handleChange}
                         />
                      </IonItem>
+                     <IonNote slot='end' color='danger'>
+                        {this.state.passwordError}
+                     </IonNote>
                      <IonItem>
                         <IonLabel>
                            Confirm password*
                         </IonLabel>
                         <IonInput
-                           required type="password"
-                           name="confirm"
+                           type="password"
+                           name="confirmPassword"
+                           value={this.state.confirmPassword}
+                           onIonBlur={this.handleChange}
                         />
                      </IonItem>
                      <ion-button type='submit'>Submit</ion-button>
