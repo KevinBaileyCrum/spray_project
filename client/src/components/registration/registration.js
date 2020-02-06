@@ -49,6 +49,8 @@ class Registration extends Component {
          passwordError: '',
          error: ''
       }
+      this.handleChange = this.handleChange.bind(this)
+      this.handleSubmit = this.handleSubmit.bind(this)
    }
 
    validate = () => {
@@ -56,12 +58,25 @@ class Registration extends Component {
       let emailError = ''
       let passwordError = ''
 
-      if (!this.
+      // if (!this.
    }
+
+   handleChange(event) {
+      this.setState({ sprayName: event.target.value })
+      console.log('changed')
+      console.log(event)
+      const name = event.target.name
+      const value = event.target.value
+
+      this.setState({
+         [name]: value
+      })
+   }
+
 
    handleSubmit = (event) => {
       event.preventDefault()
-      const isValid() = this.validate()
+      // const isValid() = this.validate()
       axios.post(API, {
          sprayName: event.target.sprayName.value,
          email: event.target.email.value,
@@ -86,7 +101,6 @@ class Registration extends Component {
                   {/* <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}> */}
                   <form onSubmit={this.handleSubmit}>
                      {/* <span> { error } </span> */}
-                     <
                      <IonItem>
                         <IonLabel>
                            Spray Name*
@@ -94,6 +108,8 @@ class Registration extends Component {
                         <IonInput
                            required type='text'
                            name='sprayName'
+                           value={this.state.sprayName}
+                           onIonBlur={this.handleChange}
                         />
                      </IonItem>
                      <IonItem>
