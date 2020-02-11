@@ -24,7 +24,7 @@ router.post('/', function(req, res, next){
 
       if (!user) {
          console.log('login err 2')
-         return res.status(401).send('invalid user?')
+         return res.status(401).send('invalid user')
       }
 
       req.logIn(user, function(err) {
