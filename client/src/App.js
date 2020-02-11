@@ -39,8 +39,6 @@ function App() {
       <IonApp>
          <IonReactRouter>
             <IonRouterOutlet>
-               {/* <Route path="/" exact component={Home} /> */}
-               {/* <Route path="/about" exact component={About} /> */}
                <Route path = '/Registration' exact component={Registration} />
                <Route path = '/Login' exact component={Login} />
             </IonRouterOutlet>

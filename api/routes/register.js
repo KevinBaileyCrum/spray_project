@@ -43,6 +43,7 @@ router.post('/', function(req, res) {
             } else {
                console.log('success')
                console.log(newUser)
+               res.status(200).send('success redirecting to login')
             }
          })
       })

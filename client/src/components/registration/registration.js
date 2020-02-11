@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from  'react-router-dom'
 import axios from 'axios'
 
 import {
@@ -28,7 +29,8 @@ class Registration extends Component {
          mpIdError: '',
          emailError: '',
          passwordError: '',
-         error: ''
+         error: '',
+         redirect: false
       }
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
@@ -43,11 +45,13 @@ class Registration extends Component {
 
       if (!this.state.sprayName) {
          sprayNameError = 'sprayName cannot be blank'
+         return false
       } else {
          const name = this.state.sprayName
          let re = /^\S+$/
          if (!re.test(name)){
             sprayNameError = 'sprayName must be a combination of two or more nonwhitespace characters'
+            return false
          }
       }
 
@@ -58,6 +62,7 @@ class Registration extends Component {
          let re =  /^d{9}/
          if (!re.test(mpId)){
             mpIdError = 'please enter your nine digit Mountain Project ID'
+            return false
          }
       }
 
@@ -66,6 +71,7 @@ class Registration extends Component {
       } else {
          if (!this.state.email.includes('@')) {
             emailError = 'invalid email'
+            return false
          }
       }
 
@@ -74,6 +80,7 @@ class Registration extends Component {
       } else {
          if (this.state.password != this.state.confirmPassword) {
             passwordError = 'passwords dont match'
+            return false
          }
       }
 
@@ -85,6 +92,11 @@ class Registration extends Component {
 
    }
 
+   renderRedirect = () => {
+      if (this.state.redirect) {
+         return <Redirect to='/Login' />
+      }
+   }
    handleChange = (event) => {
       console.log('changed')
       const name = event.target.name
@@ -107,6 +119,10 @@ class Registration extends Component {
             password: event.target.password.value,
             mpId: event.target.mpId.value
          })
+         .then((response) => {
+            console.log('hello im here')
+            this.setState({ redirect: true })
+         })
          .catch(error => {
             console.log(error.response)
             this.setState({error: error.response.data})
@@ -117,8 +133,8 @@ class Registration extends Component {
    render() {
       const { error } = this.state.error
       return (
-
          <IonPage>
+            {this.renderRedirect()}
             <IonCard>
                <IonCardHeader> Registration </IonCardHeader>
                <IonCardContent>
