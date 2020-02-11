@@ -65,12 +65,18 @@ class Login extends Component {
       const isValid = this.validate()
       console.log(this.state)
       if (isValid) {
-
          axios.post(API, {
             email: event.target.email.value,
             password: event.target.password.value
          })
-         console.log(event)
+         .then(response => {
+            console.log(response)
+         })
+         .catch(error => {
+            console.log(error.response)
+            this.setState({error: error.response})
+            console.log(event)
+         })
       }
    }
 
