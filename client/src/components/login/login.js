@@ -1,73 +1,134 @@
 import React, { Component } from 'react'
-import Form from 'react-validation/build/form'
-import Input from 'react-validation/build/input'
-import Button from 'react-validation/build/button'
-import Textarea from 'react-validation/build/textarea'
-import Select from 'react-validation/build/select'
+import axios from 'axios'
 
-import { isEmail } from 'validator'
+import {
+   IonPage,
+   IonItem,
+   IonLabel,
+   IonInput,
+   IonCard,
+   IonCardHeader,
+   IonCardContent,
+   IonToast,
+   IonNote
+} from '@ionic/react';
 
-const required = (value, props) => {
-   if (!value || (props.isCheckable && !props.checked)) {
-      return <span className="form-error is-visible">Required</span>
-   }
-}
 
-const email = (value) => {
-   if (!isEmail(value)) {
-      return <span className="form-error is-visible">{value} is not a valid email.</span>
-   }
-}
-
-const isEqual = (value, props, components) => {
-   const bothUsed = components.password[0].isUsed && components.confirm[0].isUsed
-   const bothChanged = components.password[0].isChanged && components.confirm[0].isChanged
-
-   if (bothChanged && bothUsed && components.password[0].value !== components.confirm[0].value) {
-      return <span className="form-error is-visible">Passwords are not equal.</span>
-   }
-}
+const API = 'http://localhost:9000/login' // pass this to component from app?
 
 class Login extends Component {
+   constructor(props){
+      super(props)
+      this.state = {
+         email: '',
+         password: '',
+         emailError: '',
+         passwordError: '',
+         error: ''
+      }
+      this.handleChange = this.handleChange.bind(this)
+      this.handleSubmit = this.handleSubmit.bind(this)
+   }
+
+   validate = () => {
+      console.log('validate login')
+      let emailError= ''
+      let passwordError= ''
+
+      if (!this.state.email) {
+         emailError= 'please enter an email'
+      }
+
+      if (!this.state.password) {
+         passwordError= 'please enter your password'
+      }
+
+      if (emailError || passwordError){
+         this.setState({ emailError, passwordError })
+         return false
+      }
+      return true
+
+   }
+
+   handleChange = (event) => {
+      const name = event.target.name
+      const value = event.target.value
+
+      this.setState({
+         [name]: value
+      })
+   }
+
    handleSubmit = (event) => {
       event.preventDefault()
-
-      console.log(event)
+      const isValid = this.validate()
+      console.log(this.state)
+      if (isValid) {
+         axios.post(API, {
+            email: event.target.email.value,
+            password: event.target.password.value
+         })
+         .then(response => {
+            console.log(response)
+         })
+         .catch(error => {
+            console.log(error.response)
+            this.setState({error: error.response})
+            console.log(event)
+         })
+      }
    }
 
    render() {
       return (
-         <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}>
-            <h3>Login</h3>
-            <label>
-               Email*
-               <Input
-                  placeholder="Email"
-                  type="email"
-                  name="email"
-                  validations={[required, email]}
-               />
-            </label>
-            <label>
-               Password*
-               <Input
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  validations={[required, isEqual]}
-               />
-            </label>
-            <label>
-               Confirm password*
-               <Input
-                  placeholder="Confirm password"
-                  type="password"
-                  name="confirm"
-                  validations={[required, isEqual]}
-               />
-            </label>
-            <Button className="button">Login</Button>
-         </Form>
+         <IonPage>
+            <IonCard>
+               <IonCardHeader> Login </IonCardHeader>
+               <IonCardContent>
+                  <form onSubmit={this.handleSubmit}>
+
+                     <IonToast
+                        isOpen= {this.state.error != ''}
+                        header= {this.state.error}
+                        messge= {this.state.error}
+                        onDidDissmiss= {this.state.error= ''}
+                        buttons={['OK']}
+                     />
+                    <IonItem>
+                        <IonLabel>
+                           Email*
+                        </IonLabel>
+                        <IonInput
+                           type='text'
+                           name='email'
+                           value={this.state.email}
+                           onIonBlur={this.handleChange}
+                        />
+                     </IonItem>
+                     <IonNote slot='end' color='danger'>
+                        {this.state.emailError}
+                     </IonNote>
+
+                     <IonItem>
+                        <IonLabel>
+                           Password*
+                        </IonLabel>
+                        <IonInput
+                           type="password"
+                           name="password"
+                           value={this.state.password}
+                           onIonBlur={this.handleChange}
+                        />
+                     </IonItem>
+                     <IonNote slot='end' color='danger'>
+                        {this.state.passwordError}
+                     </IonNote>
+                     <ion-button type='submit'>Submit</ion-button>
+                  </form>
+               </IonCardContent>
+            </IonCard>
+         </IonPage>
       )
    }
 }
