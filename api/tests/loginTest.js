@@ -1,3 +1,4 @@
+const util = require('util')
 const chai = require('chai')
 const axios = require('axios');
 
@@ -28,4 +29,16 @@ axios.post(URL+'/login', {
          err.response.data.should.equal('invalid user')
    })
 
-//
+// test login
+axios.post(URL+'/login', {
+   email: 'abc@abc',
+   password: 'abc'
+})
+   .then(response => {
+      console.log('login test res ' + JSON.stringify(response.data))
+      util.inspect(response)
+   })
+   .catch(err => {
+      console.log(err)
+      util.inspect(err)
+   })

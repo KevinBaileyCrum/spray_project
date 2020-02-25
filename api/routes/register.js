@@ -41,8 +41,6 @@ router.post('/', function(req, res) {
                }
                return
             } else {
-               console.log('success')
-               console.log(newUser)
                res.status(200).send('success redirecting to login')
             }
          })

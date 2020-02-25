@@ -24,16 +24,6 @@ import TickList from './components/ticklist/ticklist'
 import Login from './components/login/login'
 import Registration from './components/registration/registration'
 
-// function App() {
-//    return (
-//       <div>
-//          <Registration />
-//          <Login />
-//          <TickList />
-//       </div>
-//    );
-// }
-
 function App() {
    return (
       <IonApp>

@@ -70,7 +70,7 @@ class Login extends Component {
             password: event.target.password.value
          })
          .then(response => {
-            console.log(response)
+            console.log("axios response \n" + response)
          })
          .catch(error => {
             console.log(error.response)

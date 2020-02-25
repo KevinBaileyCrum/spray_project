@@ -33,7 +33,10 @@ router.post('/', function(req, res, next){
             console.log(err)
             return next(err)
          }
-
+         // console.log('i am real')
+         // console.log(req)
+         console.log('req '+ req)
+         console.log('info ' + info)
          return res.status(200).send(user)
       })
 
