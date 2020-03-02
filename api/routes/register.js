@@ -1,15 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
-const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 // import db model
 const User = require('../models/user')
 
-
+// import jwt secret
+const JWT_SECRET = require('./jwtConfig')
 
 router.get('/', function(req, res) {
-   res.send('hello')
+   res.send('hello ' + JSON.stringify(JWT_SECRET.secret))
 })
 
 router.post('/', function(req, res) {
@@ -46,7 +47,6 @@ router.post('/', function(req, res) {
          })
       })
    })
-   console.log('new user biatch')
 })
 
 module.exports = router

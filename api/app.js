@@ -3,7 +3,6 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const passport = require('passport')
 
 // express
 const app = express()
@@ -16,11 +15,6 @@ app.use(bodyParser.json());
 
 // import db models
 const {User} = require('./models/user')
-
-// initialize passport as middleware
-require('./routes/passport.js')(passport)
-app.use(passport.initialize())
-app.use(passport.session())
 
 // import endpoints
 const ticks = require('./routes/ticks.js')

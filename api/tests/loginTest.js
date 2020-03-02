@@ -22,7 +22,7 @@ axios.post(URL+'/login', {
    .then(response => {
       // console.log(response.data)
       response.status.should.be.equal(401)
-      response.data.should.equal('invalid ser')
+      response.data.should.equal('invalid user')
    })
    .catch(err => {
          err.response.status.should.be.equal(401)
