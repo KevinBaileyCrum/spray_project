@@ -28,6 +28,9 @@ class Login extends Component {
       }
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
+      // if (this.props.location.state.redirect){
+      //    this.setState({error: 'Welcome, now log in'})
+      // }
    }
 
    validate = () => {
@@ -52,6 +55,7 @@ class Login extends Component {
    }
 
    handleChange = (event) => {
+      console.log('location '+this.props.location.state.redirected)
       const name = event.target.name
       const value = event.target.value
 
@@ -81,12 +85,20 @@ class Login extends Component {
    }
 
    render() {
+      console.log(this.props.location.state.redirected)
       return (
          <IonPage>
             <IonCard>
                <IonCardHeader> Login </IonCardHeader>
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
+                     <IonToast
+                        isOpen= {this.props.location.state.redirected != ''}
+                        header= {this.props.location.state.redirected}
+                        messge= {this.props.location.state.redirected}
+                        onDidDissmiss= {this.props.location.state.redirected = ''}
+                        buttons={['OK']}
+                     />
 
                      <IonToast
                         isOpen= {this.state.error != ''}

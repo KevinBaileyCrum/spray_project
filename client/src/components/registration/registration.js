@@ -43,7 +43,6 @@ class Registration extends Component {
       let passwordError = ''
 
       if (!this.state.sprayName) {
-         console.log('oahf;')
          sprayNameError = 'sprayName cannot be blank'
       } else {
          const name = this.state.sprayName
@@ -57,7 +56,7 @@ class Registration extends Component {
          mpIdError = 'remember who you really are'
       } else {
          const mpId = this.state.mpId
-         let re =  /^d{9}/
+         let re =  /^\d{9}/
          if (!re.test(mpId)){
             mpIdError = 'please enter your nine digit Mountain Project ID'
          }
@@ -91,7 +90,12 @@ class Registration extends Component {
 
    renderRedirect = () => {
       if (this.state.redirect) {
-         return <Redirect to='/Login' />
+         // return <Redirect to='/Login' />
+         return <Redirect to={{
+            pathname: '/Login',
+            state: { redirected: 'Welcome, now log in' }
+         }}
+         />
       }
    }
    handleChange = (event) => {
@@ -100,16 +104,14 @@ class Registration extends Component {
       const value = event.target.value
 
       this.setState({
-         [name]: value
+         [name]: value,
       })
-      // console.log(this.state)
    }
 
    handleSubmit = (event) => {
       event.preventDefault()
       const isValid = this.validate()
       console.log('isValid post '+isValid)
-      // console.log(this.state)
       if (isValid) {
          axios.post(API, {
             sprayName: event.target.sprayName.value,
