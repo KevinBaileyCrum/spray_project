@@ -37,32 +37,29 @@ class Registration extends Component {
    }
 
    validate = () => {
-      console.log('validate')
       let sprayNameError = ''
       let mpIdError = ''
       let emailError = ''
       let passwordError = ''
 
       if (!this.state.sprayName) {
+         console.log('oahf;')
          sprayNameError = 'sprayName cannot be blank'
-         return false
       } else {
          const name = this.state.sprayName
          let re = /^\S+$/
          if (!re.test(name)){
             sprayNameError = 'sprayName must be a combination of two or more nonwhitespace characters'
-            return false
          }
       }
 
-      if (!this.state.mpIdError) {
+      if (!this.state.mpId) {
          mpIdError = 'remember who you really are'
       } else {
          const mpId = this.state.mpId
          let re =  /^d{9}/
          if (!re.test(mpId)){
             mpIdError = 'please enter your nine digit Mountain Project ID'
-            return false
          }
       }
 
@@ -71,7 +68,6 @@ class Registration extends Component {
       } else {
          if (!this.state.email.includes('@')) {
             emailError = 'invalid email'
-            return false
          }
       }
 
@@ -80,14 +76,15 @@ class Registration extends Component {
       } else {
          if (this.state.password != this.state.confirmPassword) {
             passwordError = 'passwords dont match'
-            return false
          }
       }
 
-      if (sprayNameError || emailError || passwordError){
-         this.setState({ sprayNameError, emailError, passwordError })
+      if (sprayNameError || emailError || passwordError || mpIdError) {
+         this.setState({ sprayNameError, emailError, passwordError, mpIdError })
          return false
       }
+      // console.log('a failed validation has occurred')
+      console.log(this.state)
       return true
 
    }
@@ -105,13 +102,14 @@ class Registration extends Component {
       this.setState({
          [name]: value
       })
-      console.log(this.state)
+      // console.log(this.state)
    }
 
    handleSubmit = (event) => {
       event.preventDefault()
       const isValid = this.validate()
-      console.log(this.state)
+      console.log('isValid post '+isValid)
+      // console.log(this.state)
       if (isValid) {
          axios.post(API, {
             sprayName: event.target.sprayName.value,
