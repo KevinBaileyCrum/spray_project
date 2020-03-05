@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import {
@@ -24,13 +25,20 @@ class Login extends Component {
          password: '',
          emailError: '',
          passwordError: '',
-         error: ''
+         error: '',
+         redirected: ''
       }
+
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
-      // if (this.props.location.state.redirect){
-      //    this.setState({error: 'Welcome, now log in'})
-      // }
+   }
+
+   componentDidMount() {
+      if (this.props.location.state) {
+         if (this.props.location.state.redirected) {
+            this.setState({redirected: this.props.location.state.redirected})
+         }
+      }
    }
 
    validate = () => {
@@ -55,7 +63,6 @@ class Login extends Component {
    }
 
    handleChange = (event) => {
-      console.log('location '+this.props.location.state.redirected)
       const name = event.target.name
       const value = event.target.value
 
@@ -73,41 +80,41 @@ class Login extends Component {
             email: event.target.email.value,
             password: event.target.password.value
          })
-         .then(response => {
-            console.log("axios response \n" + response)
-         })
-         .catch(error => {
-            console.log(error.response)
-            this.setState({error: error.response})
-            console.log(event)
-         })
+            .then(response => {
+               console.log("axios response \n" + response)
+            })
+            .catch(error => {
+               console.log(error.response)
+               this.setState({error: error.response})
+               console.log(event)
+            })
       }
    }
 
    render() {
-      console.log(this.props.location.state.redirected)
       return (
          <IonPage>
             <IonCard>
                <IonCardHeader> Login </IonCardHeader>
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
+
                      <IonToast
-                        isOpen= {this.props.location.state.redirected != ''}
-                        header= {this.props.location.state.redirected}
-                        messge= {this.props.location.state.redirected}
-                        onDidDissmiss= {this.props.location.state.redirected = ''}
+                        isOpen= {this.state.redirected !== ''}
+                        header= {this.state.redirected}
+                        messge= {this.state.redirected}
                         buttons={['OK']}
                      />
 
                      <IonToast
-                        isOpen= {this.state.error != ''}
+                        isOpen= {this.state.error !== ''}
                         header= {this.state.error}
                         messge= {this.state.error}
                         onDidDissmiss= {this.state.error= ''}
                         buttons={['OK']}
                      />
-                    <IonItem>
+
+                     <IonItem>
                         <IonLabel>
                            Email*
                         </IonLabel>
@@ -118,6 +125,7 @@ class Login extends Component {
                            onIonBlur={this.handleChange}
                         />
                      </IonItem>
+
                      <IonNote slot='end' color='danger'>
                         {this.state.emailError}
                      </IonNote>
@@ -133,6 +141,7 @@ class Login extends Component {
                            onIonBlur={this.handleChange}
                         />
                      </IonItem>
+
                      <IonNote slot='end' color='danger'>
                         {this.state.passwordError}
                      </IonNote>
