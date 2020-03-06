@@ -12,7 +12,7 @@ import {
    IonCardContent,
    IonToast,
    IonNote
-} from '@ionic/react';
+} from '@ionic/react'
 
 const API = 'http://localhost:9000/register' // pass this to component from app?
 
@@ -132,10 +132,8 @@ class Registration extends Component {
 
    render() {
       return (
-         <IonPage>
-            {this.renderRedirect()}
             <IonCard>
-               <IonCardHeader> Registration </IonCardHeader>
+               {this.renderRedirect()}
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
                      <IonToast
@@ -219,7 +217,6 @@ class Registration extends Component {
                   </form>
                </IonCardContent>
             </IonCard>
-         </IonPage>
       )
    }
 }

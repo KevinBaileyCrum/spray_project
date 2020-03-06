@@ -12,7 +12,7 @@ import {
    IonCardContent,
    IonToast,
    IonNote
-} from '@ionic/react';
+} from '@ionic/react'
 
 
 const API = 'http://localhost:9000/login' // pass this to component from app?
@@ -34,9 +34,11 @@ class Login extends Component {
    }
 
    componentDidMount() {
-      if (this.props.location.state) {
-         if (this.props.location.state.redirected) {
-            this.setState({redirected: this.props.location.state.redirected})
+      if (this.props.location) {
+         if (this.props.location.state) {
+            if (this.props.location.state.redirected) {
+               this.setState({redirected: this.props.location.state.redirected})
+            }
          }
       }
    }
@@ -93,9 +95,7 @@ class Login extends Component {
 
    render() {
       return (
-         <IonPage>
             <IonCard>
-               <IonCardHeader> Login </IonCardHeader>
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
 
@@ -110,7 +110,7 @@ class Login extends Component {
                         isOpen= {this.state.error !== ''}
                         header= {this.state.error}
                         messge= {this.state.error}
-                        onDidDissmiss= {this.setState({ error: '' })}
+                        onDidDissmiss= {() => {this.setState({ error: '' })}}
                         buttons={['OK']}
                      />
 
@@ -149,7 +149,6 @@ class Login extends Component {
                   </form>
                </IonCardContent>
             </IonCard>
-         </IonPage>
       )
    }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 
 /* ionic */
 import {
@@ -35,23 +36,24 @@ class LogRegSlider extends Component {
 
    render() {
       return (
-         <IonToolbar>
-            <IonSegment onIonChange= {this.handleChange} value= {this.state.tab}>
+         <div>
+            <div>
+               <IonToolbar>
+                  <IonSegment onIonChange= {this.handleChange} value= {this.state.tab}>
+                     <IonSegmentButton value= 'login'>
+                        login
+                     </IonSegmentButton>
+                     <IonSegmentButton value= 'register'>
+                        register
+                     </IonSegmentButton>
+                  </IonSegment>
+               </IonToolbar>
+            </div>
 
-               <IonSegmentButton value= 'login'>
-                  {/* <IonIcon name = 'person' /> */}
-                  {/* <IonLabel> Login </IonLabel> */}
-                  login
-               </IonSegmentButton>
-
-               <IonSegmentButton value= 'register'>
-                  {/* <IonIcon name = 'person-add' /> */}
-                  {/* <IonLabel> Register </IonLabel> */}
-                  register
-               </IonSegmentButton>
-
-            </IonSegment>
-         </IonToolbar>
+            <div>
+               {this.state.tab === 'login' ? (<Login/>) : (<Registration/>)}
+            </div>
+         </div>
 
       )
    }
