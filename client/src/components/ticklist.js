@@ -1,5 +1,4 @@
 import React from 'react'
-import './ticklist.css'
 import axios from 'axios'
 
 const API = 'http://localhost:9000/ticks' // pass this to component from app?

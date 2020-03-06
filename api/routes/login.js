@@ -15,40 +15,6 @@ router.get('/', function(req, res) {
 })
 
 // Login Process
-// router.post('/', function(req, res, next){
-//    console.log('login post')
-//    // passport.authenticate('local', (err, user, info) => {
-//       console.log('req')
-//       console.log(req)
-//       if (err) {
-//          console.log('login err')
-//          console.log(err)
-//          res.status(401).send(err)
-//          // return next(err)
-//          return (err)
-//       }
-
-//       if (!user) {
-//          console.log('login err 2')
-//          return res.status(401).send('invalid user')
-//       }
-
-//       req.logIn(user, function(err) {
-//          if (err) {
-//             console.log('err')
-//             console.log(err)
-//             return next(err)
-//          }
-//          // console.log('i am real')
-//          // console.log(req)
-//          console.log('req '+ req)
-//          console.log('info ' + info)
-//          return res.status(200).send(user)
-//       })
-
-//    })(req, res, next)
-//    console.log('logged in')
-// })
 router.post('/', async(req, res) => {
    const email = req.body.email
    const password = req.body.password
@@ -78,6 +44,5 @@ router.post('/', async(req, res) => {
       res.status(400).json({ msg: e.message })
    }
 })
-
 
 module.exports = router

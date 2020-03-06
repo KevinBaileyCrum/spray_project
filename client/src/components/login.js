@@ -110,7 +110,7 @@ class Login extends Component {
                         isOpen= {this.state.error !== ''}
                         header= {this.state.error}
                         messge= {this.state.error}
-                        onDidDissmiss= {this.state.error= ''}
+                        onDidDissmiss= {this.setState({ error: '' })}
                         buttons={['OK']}
                      />
 

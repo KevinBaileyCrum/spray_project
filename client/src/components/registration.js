@@ -73,7 +73,7 @@ class Registration extends Component {
       if (!(this.state.password || this.state.confirmPassword)) {
          passwordError = 'please enter and confirm your password'
       } else {
-         if (this.state.password != this.state.confirmPassword) {
+         if (this.state.password !== this.state.confirmPassword) {
             passwordError = 'passwords dont match'
          }
       }
@@ -131,7 +131,6 @@ class Registration extends Component {
    }
 
    render() {
-      const { error } = this.state.error
       return (
          <IonPage>
             {this.renderRedirect()}
@@ -140,10 +139,10 @@ class Registration extends Component {
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
                      <IonToast
-                        isOpen= {this.state.error != ''}
+                        isOpen= {this.state.error !== ''}
                         header= {this.state.error}
                         messge= {this.state.error}
-                        onDidDissmiss= {this.state.error= ''}
+                        onDidDissmiss= {() => {this.setState({ error: '' })}}
                         buttons={['OK']}
                      />
                      <IonItem>
