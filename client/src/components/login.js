@@ -26,22 +26,22 @@ class Login extends Component {
          emailError: '',
          passwordError: '',
          error: '',
-         redirected: ''
+         // redirected: ''
       }
 
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
    }
 
-   componentDidMount() {
-      if (this.props.location) {
-         if (this.props.location.state) {
-            if (this.props.location.state.redirected) {
-               this.setState({redirected: this.props.location.state.redirected})
-            }
-         }
-      }
-   }
+   // componentDidMount() {
+   //    if (this.props.location) {
+   //       if (this.props.location.state) {
+   //          if (this.props.location.state.redirected) {
+   //             this.setState({redirected: this.props.location.state.redirected})
+   //          }
+   //       }
+   //    }
+   // }
 
    validate = () => {
       console.log('validate login')
@@ -99,12 +99,12 @@ class Login extends Component {
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
 
-                     <IonToast
-                        isOpen= {this.state.redirected !== ''}
-                        header= {this.state.redirected}
-                        messge= {this.state.redirected}
-                        buttons={['OK']}
-                     />
+{/*                      <IonToast */}
+{/*                         isOpen= {this.state.redirected !== ''} */}
+{/*                         header= {this.state.redirected} */}
+{/*                         messge= {this.state.redirected} */}
+{/*                         buttons={['OK']} */}
+{/*                      /> */}
 
                      <IonToast
                         isOpen= {this.state.error !== ''}

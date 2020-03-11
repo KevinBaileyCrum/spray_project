@@ -29,8 +29,7 @@ class Registration extends Component {
          mpIdError: '',
          emailError: '',
          passwordError: '',
-         error: '',
-         redirect: false
+         error: ''
       }
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
@@ -82,22 +81,16 @@ class Registration extends Component {
          this.setState({ sprayNameError, emailError, passwordError, mpIdError })
          return false
       }
-      // console.log('a failed validation has occurred')
       console.log(this.state)
       return true
 
    }
 
    renderRedirect = () => {
-      if (this.state.redirect) {
-         // return <Redirect to='/Login' />
-         return <Redirect to={{
-            pathname: '/Login',
-            state: { redirected: 'Welcome, now log in' }
-         }}
-         />
-      }
+      console.log('re dir called')
+      this.props.onRedirectProp()
    }
+
    handleChange = (event) => {
       console.log('changed')
       const name = event.target.name
@@ -120,10 +113,11 @@ class Registration extends Component {
             mpId: event.target.mpId.value
          })
          .then((response) => {
-            console.log('hello im here')
-            this.setState({ redirect: true })
+            console.log('finishing post req, calling renderRedirect')
+            this.renderRedirect()
          })
          .catch(error => {
+            console.log(error)
             console.log(error.response)
             this.setState({error: error.response.data})
          })
@@ -133,7 +127,6 @@ class Registration extends Component {
    render() {
       return (
             <IonCard>
-               {this.renderRedirect()}
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
                      <IonToast

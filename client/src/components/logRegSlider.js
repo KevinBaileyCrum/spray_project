@@ -9,7 +9,8 @@ import {
    IonSegmentButton,
    IonIcon,
    IonLabel,
-   IonToolbar
+   IonToolbar,
+   IonToast
 } from '@ionic/react'
 
 import Login from './login'
@@ -19,10 +20,12 @@ class LogRegSlider extends Component {
    constructor(props) {
       super(props)
       this.state = {
-         tab: 'login'
+         tab: 'login',
+         redirected: false
       }
 
       this.handleChange = this.handleChange.bind(this)
+      this.onRedirect= this.onRedirect.bind(this)
    }
 
    handleChange = (event) => {
@@ -34,10 +37,26 @@ class LogRegSlider extends Component {
       console.log('aff ' +JSON.stringify(this.state))
    }
 
+   onRedirect = () => {
+      console.log('onRedirect called')
+      this.setState({
+         redirected: true,
+         tab: 'login'
+      })
+   }
+
    render() {
       return (
          <div>
             <div>
+
+               <IonToast
+                  isOpen= {this.state.redirected == true}
+                  header= {'Welcome, you may now log in'}
+                  onDidDissmiss= {() => {this.setState({ redirected: false })}}
+                  buttons={['OK']}
+               />
+
                <IonToolbar>
                   <IonSegment onIonChange= {this.handleChange} value= {this.state.tab}>
                      <IonSegmentButton value= 'login'>
@@ -51,7 +70,14 @@ class LogRegSlider extends Component {
             </div>
 
             <div>
-               {this.state.tab === 'login' ? (<Login/>) : (<Registration/>)}
+               {this.state.tab === 'login' ?
+                  (<Login/>)
+               :
+                  (<Registration
+                     // onRedirect={() => this.onRedirect}
+                     onRedirectProp={this.onRedirect}
+                  />)
+               }
             </div>
          </div>
 

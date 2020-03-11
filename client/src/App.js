@@ -24,7 +24,6 @@ import '@ionic/react/css/display.css';
 import Authed from './components/authed'
 import LogRegSlider from './components/logRegSlider'
 
-
 function App() {
 
    const isAuthed = useState(false)
