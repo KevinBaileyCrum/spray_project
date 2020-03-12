@@ -20,10 +20,9 @@ import '@ionic/react/css/flex-utils.css'
 import '@ionic/react/css/display.css'
 
 /* components */
-// import TickList from './components/ticklist'
+import TickList from './components/ticklist'
 import Authed from './components/authed'
 import LogRegSlider from './components/logRegSlider'
-// import AuthUser from './components/AuthUser'
 
 class App extends Component {
    constructor(props) {
@@ -38,6 +37,10 @@ class App extends Component {
    }
 
    componentDidMount() {
+      this.loginUpdate()
+   }
+
+   loginUpdate() {
       const token = localStorage.getItem('authToken')
       const name = localStorage.getItem('sprayName')
       if (!token || !name) {
@@ -56,16 +59,6 @@ class App extends Component {
       }
    }
 
-   loginUpdate() {
-      const token = localStorage.getItem('authToken')
-      const name = localStorage.getItem('sprayName')
-      this.setState({
-         isAuthed: true,
-         authToken: token,
-         sprayName: name,
-      })
-   }
-
    render() {
       return (
          <IonApp>
@@ -77,8 +70,9 @@ class App extends Component {
                         console.log('isAuthed '+this.state.isAuthed)
                         return (this.state.isAuthed === true ?
                            <Authed
-                              authToken={this.authToken}
-                              sprayName={this.sprayName}
+                              authToken={this.state.authToken}
+                              sprayName={this.state.sprayName}
+                              loginUpdate={this.loginUpdate}
                            />
                            :
                            <LogRegSlider
