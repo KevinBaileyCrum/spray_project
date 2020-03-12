@@ -1,0 +1,6 @@
+var AuthUser = {
+   token: ''
+   sprayName: ''
+}
+
+

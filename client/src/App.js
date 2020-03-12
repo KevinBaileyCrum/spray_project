@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react'
+import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 
 /* ionic */
@@ -50,10 +50,14 @@ class App extends Component {
    constructor(props) {
       super(props)
       this.state = {
-         isAuthed:  true,
+         isAuthed:  false,
          userToken: '',
          sprayName: '',
       }
+   }
+
+   componentDidMount() {
+
    }
 
    render() {

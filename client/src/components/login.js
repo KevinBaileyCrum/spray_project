@@ -67,7 +67,11 @@ class Login extends Component {
             password: event.target.password.value
          })
             .then(response => {
-               console.log("axios response \n" + JSON.stringify(response))
+               console.log('axios response \n' + JSON.stringify(response))
+               // console.log('response.token ' + response.data.token)
+               // console.log('response.sprayName ' + response.data.user.sprayName)
+               localStorage.setItem('authToken', response.data.token)
+               localStorage.setItem('sprayName', response.data.user.sprayName)
             })
             .catch(error => {
                console.log(error.response)
