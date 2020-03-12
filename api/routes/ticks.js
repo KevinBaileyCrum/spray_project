@@ -4,6 +4,9 @@ const router = express.Router()
 const axios = require('axios')
 const apiKey = require('./apiKey')
 
+// import middleware
+const auth = require('../middleware/auth')
+
 function TickObj(
    userName = null, // getUser api
    routeId = null,  // tick api vvv
@@ -95,7 +98,7 @@ const getTicks =  (userId) => {
    })
 }
 
-router.get('/', function(req, res) {
+router.get('/', auth, function(req, res) {
 
    // assuming already have userID
    // for friend in friend list
