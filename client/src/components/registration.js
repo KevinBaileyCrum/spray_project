@@ -8,7 +8,8 @@ import {
    IonCard,
    IonCardContent,
    IonToast,
-   IonNote
+   IonNote,
+   IonButton
 } from '@ionic/react'
 
 const API = 'http://localhost:9000/register' // pass this to component from app?
@@ -198,7 +199,7 @@ class Registration extends Component {
                            onIonBlur={this.handleChange}
                         />
                      </IonItem>
-                     <ion-button type='submit'>Submit</ion-button>
+                     <IonButton type='submit'>Submit</IonButton>
                   </form>
                </IonCardContent>
             </IonCard>

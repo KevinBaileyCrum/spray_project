@@ -8,7 +8,8 @@ import {
    IonCard,
    IonCardContent,
    IonToast,
-   IonNote
+   IonNote,
+   IonButton
 } from '@ionic/react'
 
 
@@ -124,7 +125,7 @@ class Login extends Component {
                      <IonNote slot='end' color='danger'>
                         {this.state.passwordError}
                      </IonNote>
-                     <ion-button type='submit'>Submit</ion-button>
+                     <IonButton type='submit'>Submit</IonButton>
                   </form>
                </IonCardContent>
             </IonCard>

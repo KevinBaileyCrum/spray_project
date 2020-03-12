@@ -25,39 +25,33 @@ import Authed from './components/authed'
 import LogRegSlider from './components/logRegSlider'
 // import AuthUser from './components/AuthUser'
 
-// function App() {
-
-//    const isAuthed = useState(false)
-
-//    return (
-//       <IonApp>
-//          <IonReactRouter>
-//             <IonRouterOutlet>
-//                <Route
-//                   path  = '*'
-//                   render = { () => {
-//                      console.log('isAuthed '+isAuthed)
-//                      return (isAuthed === true) ? <Authed/> : <LogRegSlider/>
-//                   }}
-//                />
-//             </IonRouterOutlet>
-//          </IonReactRouter>
-//       </IonApp>
-//    )
-// }
-
 class App extends Component {
    constructor(props) {
       super(props)
       this.state = {
-         isAuthed:  false,
-         userToken: '',
+         isAuthed:  '',
+         authToken: '',
          sprayName: '',
       }
    }
 
    componentDidMount() {
-
+      const token = localStorage.getItem('authToken')
+      const name = localStorage.getItem('sprayName')
+      if (!token || !name) {
+         this.setState({
+            isAuthed: false,
+            authToken: '',
+            sprayName: ''
+         })
+         localStorage.clear()
+      } else {
+         this.setState({
+            isAuthed: true,
+            authToken: token,
+            sprayName: name,
+         })
+      }
    }
 
    render() {
