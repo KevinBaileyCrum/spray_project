@@ -33,6 +33,8 @@ class App extends Component {
          authToken: '',
          sprayName: '',
       }
+
+      this.loginUpdate = this.loginUpdate.bind(this)
    }
 
    componentDidMount() {
@@ -54,6 +56,16 @@ class App extends Component {
       }
    }
 
+   loginUpdate() {
+      const token = localStorage.getItem('authToken')
+      const name = localStorage.getItem('sprayName')
+      this.setState({
+         isAuthed: true,
+         authToken: token,
+         sprayName: name,
+      })
+   }
+
    render() {
       return (
          <IonApp>
@@ -63,7 +75,15 @@ class App extends Component {
                      path  = '*'
                      render = { () => {
                         console.log('isAuthed '+this.state.isAuthed)
-                        return (this.state.isAuthed === true ? <Authed/> : <LogRegSlider/>)
+                        return (this.state.isAuthed === true ?
+                           <Authed
+                              authToken={this.authToken}
+                              sprayName={this.sprayName}
+                           />
+                           :
+                           <LogRegSlider
+                              loginUpdate={this.loginUpdate}
+                           />)
                      }}
                   />
                </IonRouterOutlet>

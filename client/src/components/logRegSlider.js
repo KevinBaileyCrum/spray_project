@@ -61,7 +61,9 @@ class LogRegSlider extends Component {
 
             <div>
                {this.state.tab === 'login' ?
-                  (<Login/>)
+                  (<Login
+                     loginUpdate={this.props.loginUpdate}
+                  />)
                :
                   (<Registration
                      onRedirectProp={this.onRedirect}
