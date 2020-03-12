@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import {
-   IonPage,
    IonItem,
    IonLabel,
    IonInput,
    IonCard,
-   IonCardHeader,
    IonCardContent,
    IonToast,
    IonNote
@@ -26,25 +23,13 @@ class Login extends Component {
          emailError: '',
          passwordError: '',
          error: '',
-         // redirected: ''
       }
 
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
    }
 
-   // componentDidMount() {
-   //    if (this.props.location) {
-   //       if (this.props.location.state) {
-   //          if (this.props.location.state.redirected) {
-   //             this.setState({redirected: this.props.location.state.redirected})
-   //          }
-   //       }
-   //    }
-   // }
-
    validate = () => {
-      console.log('validate login')
       let emailError= ''
       let passwordError= ''
 
@@ -76,19 +61,17 @@ class Login extends Component {
    handleSubmit = (event) => {
       event.preventDefault()
       const isValid = this.validate()
-      console.log(this.state)
       if (isValid) {
          axios.post(API, {
             email: event.target.email.value,
             password: event.target.password.value
          })
             .then(response => {
-               console.log("axios response \n" + response)
+               console.log("axios response \n" + JSON.stringify(response))
             })
             .catch(error => {
                console.log(error.response)
                this.setState({error: error.response})
-               console.log(event)
             })
       }
    }
@@ -99,17 +82,9 @@ class Login extends Component {
                <IonCardContent>
                   <form onSubmit={this.handleSubmit}>
 
-{/*                      <IonToast */}
-{/*                         isOpen= {this.state.redirected !== ''} */}
-{/*                         header= {this.state.redirected} */}
-{/*                         messge= {this.state.redirected} */}
-{/*                         buttons={['OK']} */}
-{/*                      /> */}
-
                      <IonToast
                         isOpen= {this.state.error !== ''}
-                        header= {this.state.error}
-                        messge= {this.state.error}
+                        header= {this.state.error.data}
                         onDidDissmiss= {() => {this.setState({ error: '' })}}
                         buttons={['OK']}
                      />

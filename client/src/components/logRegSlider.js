@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 
 /* ionic */
 import {
-   IonPage,
-   IonCard,
    IonSegment,
    IonSegmentButton,
-   IonIcon,
-   IonLabel,
    IonToolbar,
    IonToast
 } from '@ionic/react'
@@ -29,16 +24,11 @@ class LogRegSlider extends Component {
    }
 
    handleChange = (event) => {
-      console.log(event)
-      console.log(event.detail.value)
-      console.log('pre ' +JSON.stringify(this.state))
       const value = event.detail.value
       this.setState({ tab: value })
-      console.log('aff ' +JSON.stringify(this.state))
    }
 
    onRedirect = () => {
-      console.log('onRedirect called')
       this.setState({
          redirected: true,
          tab: 'login'
@@ -51,7 +41,7 @@ class LogRegSlider extends Component {
             <div>
 
                <IonToast
-                  isOpen= {this.state.redirected == true}
+                  isOpen= {this.state.redirected === true}
                   header= {'Welcome, you may now log in'}
                   onDidDissmiss= {() => {this.setState({ redirected: false })}}
                   buttons={['OK']}
@@ -74,7 +64,6 @@ class LogRegSlider extends Component {
                   (<Login/>)
                :
                   (<Registration
-                     // onRedirect={() => this.onRedirect}
                      onRedirectProp={this.onRedirect}
                   />)
                }

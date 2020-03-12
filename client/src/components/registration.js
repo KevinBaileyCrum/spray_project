@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import { Redirect } from  'react-router-dom'
 import axios from 'axios'
 
 import {
-   IonPage,
    IonItem,
    IonLabel,
    IonInput,
    IonCard,
-   IonCardHeader,
    IonCardContent,
    IonToast,
    IonNote
@@ -81,18 +78,15 @@ class Registration extends Component {
          this.setState({ sprayNameError, emailError, passwordError, mpIdError })
          return false
       }
-      console.log(this.state)
       return true
 
    }
 
    renderRedirect = () => {
-      console.log('re dir called')
       this.props.onRedirectProp()
    }
 
    handleChange = (event) => {
-      console.log('changed')
       const name = event.target.name
       const value = event.target.value
 
@@ -104,7 +98,6 @@ class Registration extends Component {
    handleSubmit = (event) => {
       event.preventDefault()
       const isValid = this.validate()
-      console.log('isValid post '+isValid)
       if (isValid) {
          axios.post(API, {
             sprayName: event.target.sprayName.value,
@@ -113,7 +106,6 @@ class Registration extends Component {
             mpId: event.target.mpId.value
          })
          .then((response) => {
-            console.log('finishing post req, calling renderRedirect')
             this.renderRedirect()
          })
          .catch(error => {
