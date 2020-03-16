@@ -1,10 +1,7 @@
-const { jwt } = require('jsonwebtoken')
-
-const { JWT_SECRET } = require('../routes/jwtConfig')
+const jwt = require('jsonwebtoken')
+const JWT_SECRET = require('../routes/jwtConfig')
 
 module.exports = (req, res, next) => {
-   const token = req.header('x-auth-token')
-
    // Check for token
    if (!token)
       return res.status(401).json({ msg: 'No token, authorizaton denied' })
@@ -16,6 +13,7 @@ module.exports = (req, res, next) => {
       req.user = decoded
       next()
    } catch (e) {
+      console.log(e)
       res.status(400).json({ msg: 'Token is not valid' })
    }
 }

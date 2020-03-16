@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 
 const API = 'http://localhost:9000/ticks' // pass this to component from app?
 
 class TickList extends React.Component{
-   state = {
-      ticks: []
+   constructor(props){
+      super(props)
+      this.state = {
+         ticks: []
+      }
    }
 
    componentDidMount() {
-      axios.get(API)
+      axios.get(API, {
+         headers: {
+            'Authorization': `${this.props.authToken}`
+         }
+      })
          .then(res => {
             const ticks = res.data
             console.log(ticks)

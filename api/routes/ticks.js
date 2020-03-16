@@ -99,6 +99,7 @@ const getTicks =  (userId) => {
 }
 
 router.get('/', auth, function(req, res) {
+   console.log('ticks')
 
    // assuming already have userID
    // for friend in friend list

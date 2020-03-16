@@ -21,6 +21,9 @@ const ticks = require('./routes/ticks.js')
 const register = require('./routes/register.js')
 const login = require('./routes/login.js')
 
+// import middleware
+// const auth = require('./middleware/auth')
+
 // env
 const port = 9000
 const DATABASE_URL= 'mongodb://localhost/test'
