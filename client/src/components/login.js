@@ -75,10 +75,10 @@ class Login extends Component {
                localStorage.setItem('sprayName', response.data.user.sprayName)
                this.props.loginUpdate()
             })
-            // .catch(error => {
-            //    console.log(error.response)
-            //    this.setState({error: error.response})
-            // })
+            .catch(error => {
+               console.log(error.response)
+               this.setState({error: error.response})
+            })
       }
    }
 
