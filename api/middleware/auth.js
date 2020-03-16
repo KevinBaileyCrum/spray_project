@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET = require('../routes/jwtConfig')
 
 module.exports = (req, res, next) => {
+   token = req.headers.authorization
    // Check for token
    if (!token)
       return res.status(401).json({ msg: 'No token, authorizaton denied' })
