@@ -22,7 +22,10 @@ const userSchema = mongoose.Schema({
    mpId:{
       type: String,
       required: true
-   }
+   },
+   friendsList:[{
+      type: String
+   }]
 
 });
 

@@ -24,7 +24,8 @@ router.post('/', function(req, res) {
       sprayName: sprayName,
       email: email,
       password: password,
-      mpId: mpId
+      mpId: mpId,
+      friendsList: []
    })
 
    bcrypt.genSalt(10, function(err, salt){
