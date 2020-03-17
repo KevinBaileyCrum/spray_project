@@ -20,6 +20,7 @@ const {User} = require('./models/user')
 const ticks = require('./routes/ticks.js')
 const register = require('./routes/register.js')
 const login = require('./routes/login.js')
+const addFriend = require('./routes/addFriend.js')
 
 // import middleware
 // const auth = require('./middleware/auth')
@@ -43,5 +44,6 @@ db.once('open', () => console.log('connected to database'))
 app.use('/ticks', ticks)
 app.use('/register', register)
 app.use('/login', login)
+app.use('/addFriend', addFriend)
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
