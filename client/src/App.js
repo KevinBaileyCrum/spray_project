@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 
 /* ionic */
 import '@ionic/react/css/core.css'
-import { IonApp, IonRouterOutlet } from '@ionic/react'
+import { IonApp, IonRouterOutlet, IonContent } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 
 /* Basic CSS for apps built with Ionic */
@@ -20,7 +20,6 @@ import '@ionic/react/css/flex-utils.css'
 import '@ionic/react/css/display.css'
 
 /* components */
-import TickList from './components/ticklist'
 import Authed from './components/authed'
 import LogRegSlider from './components/logRegSlider'
 
@@ -64,6 +63,7 @@ class App extends Component {
          <IonApp>
             <IonReactRouter>
                <IonRouterOutlet>
+                  <IonContent>
                   <Route
                      path  = '*'
                      render = { () => {
@@ -80,6 +80,7 @@ class App extends Component {
                            />)
                      }}
                   />
+                  </IonContent>
                </IonRouterOutlet>
             </IonReactRouter>
          </IonApp>

@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const API = 'http://localhost:9000/ticks' // pass this to component from app?
 
-class TickList extends React.Component{
+class TickList extends Component{
    constructor(props){
       super(props)
       this.state = {

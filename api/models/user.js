@@ -24,7 +24,8 @@ const userSchema = mongoose.Schema({
       required: true
    },
    friendsList:[{
-      type: String
+      type: String,
+      trim: true
    }]
 
 });

@@ -34,7 +34,8 @@ app.use(cors())
 mongoose.connect(DATABASE_URL, {
    useUnifiedTopology: true,
    useNewUrlParser: true,
-   useCreateIndex: true
+   useCreateIndex: true,
+   useFindAndModify: false
 })
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
