@@ -71,7 +71,6 @@ const getTicks =  (userId) => {
       // console.log(`mpTicksRes ${mpTicksRes}`)
       for (res in mpTicksRes){
          var tick = new TickObj()
-         // console.log(mpTicksRes[res])
          tick.routeId = mpTicksRes[res].routeId
          tick.date = mpTicksRes[res].date
          tick.style = mpTicksRes[res].style
@@ -79,12 +78,8 @@ const getTicks =  (userId) => {
          tick.stars = mpTicksRes[res].userRating
          tick.tickId = mpTicksRes[res].tickId
 
-         // console.log(tick)
          tickList.push(tick)
       }
-      // console.log(`ticklist test ${tickList}`)
-      // return mpTicksRes
-      // return tickList
       routes=tickList.map(tick=>mpApiGetRoutes(tick.routeId))
       return Promise.all(routes).then(results=>{
          //_.zip(results,tickList).forEach((t)

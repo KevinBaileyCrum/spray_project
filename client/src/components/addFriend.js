@@ -1,3 +1,10 @@
+// TODO: error messages on client for not entering 9 digits
+//    error messages for when api returns invalid userid
+//
+//    show user card
+//    confirmation: allow add or dismiss....if i do that ill change logic in endpoint and not
+//    update db until confirmation
+
 import React, { Component } from 'react'
 import axios from 'axios'
 
@@ -84,25 +91,26 @@ class AddFriend extends Component {
       return (
          <div>
             <IonButton expand='block' onClick={this.toggleModal}> Add Friend </IonButton>
-
                <IonModal
                   isOpen={this.state.modalOpen}
                >
 
-            <form onSubmit={this.handleSubmit}>
-                  <IonItem>
-                     <IonLabel Mountain Project Id />
-                     <IonInput
-                        type= 'number'
-                        name= 'mpId'
-                        value={this.state.mpId}
-                        onIonChange={this.handleChange}
-                        clearOnEdit={true}
-                     />
-                     <IonButton type='submit'> Submit </IonButton>
-                     <IonButton onClick={this.toggleModal}> Cancel </IonButton>
-                  </IonItem>
-            </form>
+                  <form onSubmit={this.handleSubmit}>
+                     <IonItem>
+                        <IonLabel Mountain Project Id />
+                        <IonInput
+                           type= 'number'
+                           name= 'mpId'
+                           value={this.state.mpId}
+                           onIonChange={this.handleChange}
+                           clearOnEdit={true}
+                        />
+                        <IonButton type='submit'> Submit </IonButton>
+                        <IonButton onClick={this.toggleModal}> Cancel </IonButton>
+                     </IonItem>
+                  </form>
+
+
                </IonModal>
             <FriendCard />
          </div>
