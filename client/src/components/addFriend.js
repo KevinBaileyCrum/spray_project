@@ -34,6 +34,7 @@ class AddFriend extends Component {
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.toggleModal = this.toggleModal.bind(this)
+      this.handleDissmiss = this.handleDissmiss.bind(this)
    }
 
    validate = () => {
@@ -52,6 +53,13 @@ class AddFriend extends Component {
          return false
       }
       return true
+   }
+
+   handleDissmiss = () => {
+      console.log('dismissed')
+      this.setState({
+         error: ''
+      })
    }
 
    handleChange = (event) => {
@@ -99,8 +107,13 @@ class AddFriend extends Component {
                   isOpen= {this.state.error !== ''}
                   header= {this.state.error}
                   messge= {this.state.error}
-                  onDidDissmiss= {() => {this.setState({ error: '' })}}
-                  buttons={['OK']}
+                  // onDidDissmiss= {() => {this.setState({ error: '' })}}
+                  buttons={[
+                     {
+                        text:'OK',
+                        handler: this.handleDissmiss
+                     }
+                  ]}
                />
                <p>
                   Please enter a 9 digit Mountain Project Id of someone who's ticks you would like to follow
