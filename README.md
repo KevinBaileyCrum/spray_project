@@ -14,6 +14,7 @@ runs port 9000
 install local instance of mongoDB by following
 `https://github.com/mongodb/homebrew-brew`.
 ### React Frontend
+Built with Ionic5
 cd ./clinet run `npm start`
 runs port 3000
 
