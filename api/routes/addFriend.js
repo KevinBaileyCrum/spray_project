@@ -20,14 +20,14 @@ router.post('/', async(req, res) => {
    const mpId = req.body.mpId
    const sprayName = req.body.sprayName
    try {
-      console.log(req.body)
-      let newFriend = await User.findOneAndUpdate(
-         { sprayName: sprayName},
-         { $push: { friendsList: mpId } },
-      )
-      if (!newFriend) {
-         return res.status(401).send('invalid input')
-      } else {
+      // console.log(req.body)
+      // let newFriend = await User.findOneAndUpdate(
+      //    { sprayName: sprayName},
+      //    { $push: { friendsList: mpId } },
+      // )
+      // if (!newFriend) {
+      //    return res.status(401).send('invalid input')
+      // } else {
          axios.get('https://www.mountainproject.com/data/get-user?', {
             params: {
                userId: mpId,
@@ -50,7 +50,7 @@ router.post('/', async(req, res) => {
                console.log('axios error')
                console.log(error)
             })
-      }
+      // }
    } catch (error) {
       return res.status(401).send(error)
    }

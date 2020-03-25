@@ -13,7 +13,8 @@ import {
    IonButton,
    IonLabel,
    IonModal,
-   IonItem
+   IonItem,
+   IonToast
 } from '@ionic/react'
 
 import FriendCard from './friendCard'
@@ -26,8 +27,7 @@ class AddFriend extends Component {
       super(props)
       this.state = {
          mpId: '',
-         mpIdError: '',
-         apiError: '',
+         error: '',
          modalOpen: false
       }
 
@@ -37,18 +37,18 @@ class AddFriend extends Component {
    }
 
    validate = () => {
-      let mpIdError = ''
+      let error = ''
 
       if (!this.state.mpId) {
-         mpIdError = 'please enter a 9 digit mountain project ID'
+         error = 'please enter a 9 digit mountain project ID'
       } else {
          let re = /^\d{9}/
          if (!re.test(this.state.mpId)) {
-            mpIdError = 'please ensure you are only entering a 9 digit mountain project ID'
+            error = 'please ensure you are only entering a 9 digit mountain project ID'
          }
       }
-      if (mpIdError) {
-         this.setState({ mpIdError })
+      if (error) {
+         this.setState({ error })
          return false
       }
       return true
@@ -73,8 +73,9 @@ class AddFriend extends Component {
 
             })
             .catch(error => {
+               console.log('im calling error bruh')
                console.log(error)
-               this.setState({ apiError: error })
+               this.setState({ error: error.response.data })
             })
       }
       console.log('submitted')
@@ -91,27 +92,37 @@ class AddFriend extends Component {
       return (
          <div>
             <IonButton expand='block' onClick={this.toggleModal}> Add Friend </IonButton>
-               <IonModal
-                  isOpen={this.state.modalOpen}
-               >
+            <IonModal
+               isOpen={this.state.modalOpen}
+            >
+               <IonToast
+                  isOpen= {this.state.error !== ''}
+                  header= {this.state.error}
+                  messge= {this.state.error}
+                  onDidDissmiss= {() => {this.setState({ error: '' })}}
+                  buttons={['OK']}
+               />
+               <p>
+                  Please enter a 9 digit Mountain Project Id of someone who's ticks you would like to follow
+                  eg(https://www.mountainproject.com/user/<strong>108543839</strong>/)
+               </p>
+               <form onSubmit={this.handleSubmit}>
+                  <IonItem>
+                     <IonLabel Mountain Project Id />
+                     <IonInput
+                        type= 'number'
+                        name= 'mpId'
+                        value={this.state.mpId}
+                        onIonChange={this.handleChange}
+                        clearOnEdit={true}
+                     />
+                     <IonButton type='submit'> Submit </IonButton>
+                     <IonButton onClick={this.toggleModal}> Cancel </IonButton>
+                  </IonItem>
+               </form>
 
-                  <form onSubmit={this.handleSubmit}>
-                     <IonItem>
-                        <IonLabel Mountain Project Id />
-                        <IonInput
-                           type= 'number'
-                           name= 'mpId'
-                           value={this.state.mpId}
-                           onIonChange={this.handleChange}
-                           clearOnEdit={true}
-                        />
-                        <IonButton type='submit'> Submit </IonButton>
-                        <IonButton onClick={this.toggleModal}> Cancel </IonButton>
-                     </IonItem>
-                  </form>
 
-
-               </IonModal>
+            </IonModal>
             <FriendCard />
          </div>
       )
