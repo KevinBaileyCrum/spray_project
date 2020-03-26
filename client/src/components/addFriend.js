@@ -89,6 +89,7 @@ class AddFriend extends Component {
                console.log(response.data)
                const data = response.data
                this.setState({
+                  showFriend: true,
                   friendObj: {
                      name: data.name,
                      avatar: data.avatar,
@@ -114,6 +115,11 @@ class AddFriend extends Component {
    }
 
    render() {
+      // if this aint hacky
+      let friendCard = null
+      if (this.state.showFriend) {
+         friendCard = <FriendCard />
+      }
       return (
          <div>
             <IonButton expand='block' onClick={this.toggleModal}> Add Friend </IonButton>
@@ -150,10 +156,7 @@ class AddFriend extends Component {
                      <IonButton onClick={this.toggleModal}> Cancel </IonButton>
                   </IonItem>
                </form>
-               {/* TODO: conditionally render friendCard then pass props to card, check confirm then add to db */}
-               if (showFriend) {
-                  <FriendCard />
-               }
+               { friendCard }
             </IonModal>
 
          </div>
