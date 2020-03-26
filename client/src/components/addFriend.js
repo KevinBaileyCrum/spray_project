@@ -1,4 +1,4 @@
-// TODO: error messages on client for not entering 9 digits
+// TODO: change toggleModal to modal open and modal close separate methods
 //    error messages for when api returns invalid userid
 //
 //    show user card
@@ -28,13 +28,20 @@ class AddFriend extends Component {
       this.state = {
          mpId: '',
          error: '',
-         modalOpen: false
+         modalOpen: false,
+         showFriend: false,
+         friendObj: {
+            name: '',
+            avatar: '',
+            location: ''
+         }
       }
 
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.toggleModal = this.toggleModal.bind(this)
       this.handleDissmiss = this.handleDissmiss.bind(this)
+
    }
 
    validate = () => {
@@ -75,10 +82,20 @@ class AddFriend extends Component {
       const isValid = this.validate()
       if (isValid) {
          axios.post(API, {
+            // pass auth creds here
             mpId: this.state.mpId
          })
             .then(response => {
-
+               console.log(response.data)
+               const data = response.data
+               this.setState({
+                  friendObj: {
+                     name: data.name,
+                     avatar: data.avatar,
+                     location: data.location
+                  }
+               })
+               console.log(this.state)
             })
             .catch(error => {
                console.log('im calling error bruh')
@@ -133,10 +150,12 @@ class AddFriend extends Component {
                      <IonButton onClick={this.toggleModal}> Cancel </IonButton>
                   </IonItem>
                </form>
-
-
+               {/* TODO: conditionally render friendCard then pass props to card, check confirm then add to db */}
+               if (showFriend) {
+                  <FriendCard />
+               }
             </IonModal>
-            <FriendCard />
+
          </div>
       )
    }
