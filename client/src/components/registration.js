@@ -31,6 +31,7 @@ class Registration extends Component {
       }
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleDissmiss = this.handleDissmiss.bind(this)
    }
 
    validate = () => {
@@ -83,6 +84,12 @@ class Registration extends Component {
 
    }
 
+   handleDissmiss = () => {
+      this.setState({
+         error: ''
+      })
+   }
+
    renderRedirect = () => {
       this.props.onRedirectProp()
    }
@@ -127,7 +134,12 @@ class Registration extends Component {
                         header= {this.state.error}
                         messge= {this.state.error}
                         onDidDissmiss= {() => {this.setState({ error: '' })}}
-                        buttons={['OK']}
+                        buttons={[
+                           {
+                              text:'OK',
+                              handler: this.handleDissmiss
+                           }
+                        ]}
                      />
                      <IonItem>
                         <IonLabel>

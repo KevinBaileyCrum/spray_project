@@ -1,4 +1,4 @@
-// TODO: error messages on client for not entering 9 digits
+// TODO: change toggleModal to modal open and modal close separate methods
 //    error messages for when api returns invalid userid
 //
 //    show user card
@@ -28,12 +28,21 @@ class AddFriend extends Component {
       this.state = {
          mpId: '',
          error: '',
-         modalOpen: false
+         modalOpen: false,
+         showFriend: false,
+         friendObj: {
+            name: '',
+            avatar: '',
+            location: '',
+            about: ''
+         }
       }
 
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.toggleModal = this.toggleModal.bind(this)
+      this.handleDissmiss = this.handleDissmiss.bind(this)
+
    }
 
    validate = () => {
@@ -54,6 +63,13 @@ class AddFriend extends Component {
       return true
    }
 
+   handleDissmiss = () => {
+      console.log('dismissed')
+      this.setState({
+         error: ''
+      })
+   }
+
    handleChange = (event) => {
       console.log('changed')
       console.log(event)
@@ -67,10 +83,22 @@ class AddFriend extends Component {
       const isValid = this.validate()
       if (isValid) {
          axios.post(API, {
+            // pass auth creds here
             mpId: this.state.mpId
          })
             .then(response => {
-
+               console.log(response.data)
+               const data = response.data
+               this.setState({
+                  showFriend: true,
+                  friendObj: {
+                     name: data.name,
+                     avatar: data.avatar,
+                     location: data.location,
+                     about: data.about
+                  }
+               })
+               console.log(this.state)
             })
             .catch(error => {
                console.log('im calling error bruh')
@@ -89,6 +117,13 @@ class AddFriend extends Component {
    }
 
    render() {
+      let friendCard = null
+      if (this.state.showFriend) {
+         friendCard =
+            <FriendCard
+               friendObj= {this.state.friendObj}
+            />
+      }
       return (
          <div>
             <IonButton expand='block' onClick={this.toggleModal}> Add Friend </IonButton>
@@ -99,8 +134,12 @@ class AddFriend extends Component {
                   isOpen= {this.state.error !== ''}
                   header= {this.state.error}
                   messge= {this.state.error}
-                  onDidDissmiss= {() => {this.setState({ error: '' })}}
-                  buttons={['OK']}
+                  buttons={[
+                     {
+                        text:'OK',
+                        handler: this.handleDissmiss
+                     }
+                  ]}
                />
                <p>
                   Please enter a 9 digit Mountain Project Id of someone who's ticks you would like to follow
@@ -120,10 +159,9 @@ class AddFriend extends Component {
                      <IonButton onClick={this.toggleModal}> Cancel </IonButton>
                   </IonItem>
                </form>
-
-
+               { friendCard }
             </IonModal>
-            <FriendCard />
+
          </div>
       )
    }
