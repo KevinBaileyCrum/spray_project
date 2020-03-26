@@ -28,7 +28,6 @@ class Login extends Component {
 
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
-      this.handleDissmiss = this.handleDissmiss.bind(this)
    }
 
    validate = () => {
@@ -51,12 +50,6 @@ class Login extends Component {
 
    }
 
-   handleDissmiss = () => {
-      this.setState({
-         error: ''
-      })
-   }
-
    handleChange = (event) => {
       const name = event.target.name
       const value = event.target.value
@@ -76,6 +69,8 @@ class Login extends Component {
          })
             .then(response => {
                console.log('axios response \n' + JSON.stringify(response))
+               // console.log('response.token ' + response.data.token)
+               // console.log('response.sprayName ' + response.data.user.sprayName)
                localStorage.setItem('authToken', response.data.token)
                localStorage.setItem('sprayName', response.data.user.sprayName)
                this.props.loginUpdate()
@@ -96,12 +91,8 @@ class Login extends Component {
                      <IonToast
                         isOpen= {this.state.error !== ''}
                         header= {this.state.error.data}
-                        buttons={[
-                           {
-                              text: 'OK',
-                              handler: this.handleDissmiss
-                           }
-                        ]}
+                        onDidDissmiss= {() => {this.setState({ error: '' })}}
+                        buttons={['OK']}
                      />
 
                      <IonItem>

@@ -4,7 +4,6 @@ import axios from 'axios'
 import {
    IonCard,
    IonCardHeader,
-   IonCardContent,
    IonAvatar,
    IonImg,
    IonItem
@@ -21,20 +20,14 @@ class FriendCard extends Component {
       return (
          <IonCard>
                <IonAvatar>
-                  {/* <IonImg src='https://www.mountainproject.com/photos/avatars/108543839.jpg?1573274398' /> */}
-                  <IonImg src={this.props.friendObj.avatar} />
+                  <IonImg src='https://www.mountainproject.com/photos/avatars/108543839.jpg?1573274398' />
                </IonAvatar>
                <IonCardHeader>
-                  {/* Kevin Crum */}
-                  {this.props.friendObj.name}
+                  Kevin Crum
                </IonCardHeader>
                <IonCardHeader>
-                  {/* Location */}
-                  {this.props.friendObj.location}
+                  Location
                </IonCardHeader>
-               <IonCardContent>
-                  {this.props.friendObj.about}
-               </IonCardContent>
          </IonCard>
 
       )
