@@ -33,7 +33,8 @@ class AddFriend extends Component {
          friendObj: {
             name: '',
             avatar: '',
-            location: ''
+            location: '',
+            about: ''
          }
       }
 
@@ -93,7 +94,8 @@ class AddFriend extends Component {
                   friendObj: {
                      name: data.name,
                      avatar: data.avatar,
-                     location: data.location
+                     location: data.location,
+                     about: data.about
                   }
                })
                console.log(this.state)
@@ -115,10 +117,12 @@ class AddFriend extends Component {
    }
 
    render() {
-      // if this aint hacky
       let friendCard = null
       if (this.state.showFriend) {
-         friendCard = <FriendCard />
+         friendCard =
+            <FriendCard
+               friendObj= {this.state.friendObj}
+            />
       }
       return (
          <div>
@@ -130,7 +134,6 @@ class AddFriend extends Component {
                   isOpen= {this.state.error !== ''}
                   header= {this.state.error}
                   messge= {this.state.error}
-                  // onDidDissmiss= {() => {this.setState({ error: '' })}}
                   buttons={[
                      {
                         text:'OK',
