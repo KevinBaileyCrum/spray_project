@@ -42,7 +42,9 @@ class FriendCard extends Component {
                >
                   cancel
                </IonButton>
-               <IonButton>
+               <IonButton
+                  onClick={this.props.handleAddFriend}
+               >
                   add
                </IonButton>
          </IonCard>

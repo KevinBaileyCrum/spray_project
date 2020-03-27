@@ -118,8 +118,22 @@ class AddFriend extends Component {
    }
 
    handleAddFriend = () => {
-      event.preventDefault()
-
+      let sprayName = localStorage.getItem('sprayName')
+      axios.post(API, {
+         params: {
+            // pass auth creds here
+            mpId: this.state.mpId,
+            sprayName: sprayName
+         }
+      })
+         .then(response => {
+            console.log(response.data)
+            this.setState(this.defaultState)
+         })
+         .catch(error => {
+            console.log('error on post')
+            console.log(error)
+         })
    }
 
    modalOn = () => {
@@ -141,6 +155,7 @@ class AddFriend extends Component {
             <FriendCard
                friendObj= {this.state.friendObj}
                modalOff= {this.modalOff}
+               handleAddFriend= {this.handleAddFriend}
             />
       }
       return (

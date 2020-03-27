@@ -57,10 +57,11 @@ router.post('/', async(req, res) => {
    const sprayName = req.body.sprayName
    console.log(req.body)
    try {
-      let newFriend = await User.findOneAndUpdate(
+      let user = await User.findOneAndUpdate(
          { sprayName: sprayName},
          { $push: { friendsList: mpId } },
       )
+      return
    } catch (error) {
       console.log(error)
       return res.status(401).send(error)
