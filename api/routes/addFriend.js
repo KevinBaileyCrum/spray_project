@@ -1,4 +1,5 @@
 // TODO add middleware to post request when ready
+// 200432149
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
@@ -16,9 +17,10 @@ function FriendObj(
    this.location = location
 }
 
-router.post('/', async(req, res) => {
-   const mpId = req.body.mpId
-   const sprayName = req.body.sprayName
+router.get('/', async(req, res) => {
+   const mpId = req.query.mpId
+   const sprayName = req.query.sprayName
+   console.log(req.query)
    try {
       axios.get('https://www.mountainproject.com/data/get-user?', {
          params: {
@@ -27,10 +29,12 @@ router.post('/', async(req, res) => {
          }
       })
          .then((response) => {
+            console.log(response.data)
             if (!response.data) {
                return res.status(400).send('Invalid User Id')
             } else {
                var Friend = new FriendObj()
+               Friend.mpid = response.data.id
                Friend.name = response.data.name
                Friend.avatar = response.data.avatar
                Friend.location = response.data.location
@@ -43,10 +47,25 @@ router.post('/', async(req, res) => {
             console.log('axios error')
             console.log(error)
          })
-      // }
    } catch (error) {
       return res.status(401).send(error)
    }
+})
+
+router.post('/', async(req, res) => {
+   const mpId = req.body.mpId // friend mpId
+   const sprayName = req.body.sprayName
+   console.log(req.body)
+   try {
+      let newFriend = await User.findOneAndUpdate(
+         { sprayName: sprayName},
+         { $push: { friendsList: mpId } },
+      )
+   } catch (error) {
+      console.log(error)
+      return res.status(401).send(error)
+   }
+
 })
 
 module.exports = router
