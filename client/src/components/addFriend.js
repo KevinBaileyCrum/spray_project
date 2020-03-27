@@ -31,17 +31,21 @@ class AddFriend extends Component {
          modalOpen: false,
          showFriend: false,
          friendObj: {
+            mpId: '',
             name: '',
             avatar: '',
             location: '',
             about: ''
          }
       }
+      this.defaultState = this.state
 
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
-      this.toggleModal = this.toggleModal.bind(this)
+      this.modalOn = this.modalOn.bind(this)
+      this.modalOff = this.modalOff.bind(this)
       this.handleDissmiss = this.handleDissmiss.bind(this)
+      this.handleAddFriend = this.handleAddFriend.bind(this)
 
    }
 
@@ -82,9 +86,11 @@ class AddFriend extends Component {
       event.preventDefault()
       const isValid = this.validate()
       if (isValid) {
-         axios.post(API, {
-            // pass auth creds here
-            mpId: this.state.mpId
+         axios.get(API, {
+            params: {
+               // pass auth creds here
+               mpId: this.state.mpId
+            }
          })
             .then(response => {
                console.log(response.data)
@@ -92,6 +98,7 @@ class AddFriend extends Component {
                this.setState({
                   showFriend: true,
                   friendObj: {
+                     mpId: data.id,
                      name: data.name,
                      avatar: data.avatar,
                      location: data.location,
@@ -110,10 +117,35 @@ class AddFriend extends Component {
       console.log(event)
    }
 
-   toggleModal = (event) => {
-      this.setState({
-         modalOpen: !this.state.modalOpen
+   handleAddFriend = () => {
+      let sprayName = localStorage.getItem('sprayName')
+      axios.post(API, {
+         params: {
+            // pass auth creds here
+            mpId: this.state.mpId,
+            sprayName: sprayName
+         }
       })
+         .then(response => {
+            console.log(response.data)
+            this.setState(this.defaultState)
+         })
+         .catch(error => {
+            console.log('error on post')
+            console.log(error)
+         })
+   }
+
+   modalOn = () => {
+      this.setState({
+         modalOpen: true
+      })
+   }
+
+   modalOff = () => {
+      this.setState(
+         this.defaultState
+      )
    }
 
    render() {
@@ -122,11 +154,13 @@ class AddFriend extends Component {
          friendCard =
             <FriendCard
                friendObj= {this.state.friendObj}
+               modalOff= {this.modalOff}
+               handleAddFriend= {this.handleAddFriend}
             />
       }
       return (
          <div>
-            <IonButton expand='block' onClick={this.toggleModal}> Add Friend </IonButton>
+            <IonButton expand='block' onClick={this.modalOn}> Add Friend </IonButton>
             <IonModal
                isOpen={this.state.modalOpen}
             >
@@ -156,7 +190,7 @@ class AddFriend extends Component {
                         clearOnEdit={true}
                      />
                      <IonButton type='submit'> Submit </IonButton>
-                     <IonButton onClick={this.toggleModal}> Cancel </IonButton>
+                     <IonButton onClick={this.modalOff}> Cancel </IonButton>
                   </IonItem>
                </form>
                { friendCard }
