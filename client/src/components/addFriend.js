@@ -37,10 +37,13 @@ class AddFriend extends Component {
             about: ''
          }
       }
+      this.defaultState = this.state
 
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.toggleModal = this.toggleModal.bind(this)
+      this.modalOpen = this.modalOpen.bind(this)
+      this.modalOff = this.modalOff.bind(this)
       this.handleDissmiss = this.handleDissmiss.bind(this)
 
    }
@@ -116,6 +119,18 @@ class AddFriend extends Component {
       })
    }
 
+   modalOn = () => {
+      this.setState({
+         modalOpen: true
+      })
+   }
+
+   modalOff = () => {
+      this.setState({
+         this.defaultState
+      })
+   }
+
    render() {
       let friendCard = null
       if (this.state.showFriend) {
@@ -126,7 +141,7 @@ class AddFriend extends Component {
       }
       return (
          <div>
-            <IonButton expand='block' onClick={this.toggleModal}> Add Friend </IonButton>
+            <IonButton expand='block' onClick={this.modalOn}> Add Friend </IonButton>
             <IonModal
                isOpen={this.state.modalOpen}
             >
@@ -156,7 +171,7 @@ class AddFriend extends Component {
                         clearOnEdit={true}
                      />
                      <IonButton type='submit'> Submit </IonButton>
-                     <IonButton onClick={this.toggleModal}> Cancel </IonButton>
+                     <IonButton onClick={this.modalOff}> Cancel </IonButton>
                   </IonItem>
                </form>
                { friendCard }
