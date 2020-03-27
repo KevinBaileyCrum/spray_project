@@ -42,7 +42,7 @@ class AddFriend extends Component {
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
       this.toggleModal = this.toggleModal.bind(this)
-      this.modalOpen = this.modalOpen.bind(this)
+      this.modalOn = this.modalOn.bind(this)
       this.modalOff = this.modalOff.bind(this)
       this.handleDissmiss = this.handleDissmiss.bind(this)
 
@@ -126,9 +126,9 @@ class AddFriend extends Component {
    }
 
    modalOff = () => {
-      this.setState({
+      this.setState(
          this.defaultState
-      })
+      )
    }
 
    render() {
@@ -137,6 +137,7 @@ class AddFriend extends Component {
          friendCard =
             <FriendCard
                friendObj= {this.state.friendObj}
+               modalOff= {this.modalOff}
             />
       }
       return (

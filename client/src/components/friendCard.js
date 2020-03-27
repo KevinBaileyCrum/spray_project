@@ -7,7 +7,8 @@ import {
    IonCardContent,
    IonAvatar,
    IonImg,
-   IonItem
+   IonItem,
+   IonButton
 } from '@ionic/react'
 
 class FriendCard extends Component {
@@ -35,6 +36,15 @@ class FriendCard extends Component {
                <IonCardContent>
                   {this.props.friendObj.about}
                </IonCardContent>
+               <IonButton
+                  color='danger'
+                  onClick={this.props.modalOff}
+               >
+                  cancel
+               </IonButton>
+               <IonButton>
+                  add
+               </IonButton>
          </IonCard>
 
       )
