@@ -132,8 +132,7 @@ class Registration extends Component {
                      <IonToast
                         isOpen= {this.state.error !== ''}
                         header= {this.state.error}
-                        messge= {this.state.error}
-                        onDidDissmiss= {() => {this.setState({ error: '' })}}
+                        message= {this.state.error}
                         buttons={[
                            {
                               text:'OK',

@@ -128,7 +128,10 @@ class AddFriend extends Component {
       })
          .then(response => {
             console.log(response.data)
+            const message = this.state.friendObj.name + ' has been added to your friends list!'
+            console.log('message ' + message)
             this.setState(this.defaultState)
+            this.props.showToast(message)
          })
          .catch(error => {
             console.log('error on post')
