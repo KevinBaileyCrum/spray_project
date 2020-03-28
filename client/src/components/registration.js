@@ -131,7 +131,7 @@ class Registration extends Component {
                   <form onSubmit={this.handleSubmit}>
                      <IonToast
                         isOpen= {this.state.error !== ''}
-                        header= {this.state.error}
+                        header= 'TAKE!'
                         message= {this.state.error}
                         buttons={[
                            {
