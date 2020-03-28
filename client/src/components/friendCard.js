@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 
 import {
    IonCard,
@@ -7,7 +6,6 @@ import {
    IonCardContent,
    IonAvatar,
    IonImg,
-   IonItem,
    IonButton
 } from '@ionic/react'
 

@@ -20,7 +20,6 @@ function FriendObj(
 router.get('/', async(req, res) => {
    const mpId = req.query.mpId
    const sprayName = req.query.sprayName
-   console.log(req.query)
    try {
       axios.get('https://www.mountainproject.com/data/get-user?', {
          params: {
@@ -29,7 +28,6 @@ router.get('/', async(req, res) => {
          }
       })
          .then((response) => {
-            console.log(response.data)
             if (!response.data) {
                return res.status(400).send('Invalid User Id')
             } else {
@@ -39,7 +37,6 @@ router.get('/', async(req, res) => {
                Friend.avatar = response.data.avatar
                Friend.location = response.data.location
                Friend.about = response.data.otherInterests
-               console.log(Friend)
                return res.status(200).send(Friend)
             }
          })
@@ -53,15 +50,22 @@ router.get('/', async(req, res) => {
 })
 
 router.post('/', async(req, res) => {
-   const mpId = req.body.mpId // friend mpId
-   const sprayName = req.body.sprayName
+   const mpId = req.body.params.mpId // friend mpId
+   const sprayName = req.body.params.sprayName
    console.log(req.body)
+   console.log(req.body.params.mpId)
+   console.log(req.body.params.sprayName)
+   console.log(req.body.params)
+
    try {
-      let user = await User.findOneAndUpdate(
+      const user = await User.findOneAndUpdate(
          { sprayName: sprayName},
          { $push: { friendsList: mpId } },
       )
-      return
+      if (!user) {
+         console.log('adding friend db error')
+      }
+      return res.status(200).send('friend added')
    } catch (error) {
       console.log(error)
       return res.status(401).send(error)
