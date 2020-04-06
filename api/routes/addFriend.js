@@ -17,6 +17,7 @@ function FriendObj(
    this.location = location
 }
 
+// calls mountain project get user api for populating add friend card
 router.get('/', async(req, res) => {
    const mpId = req.query.mpId
    const sprayName = req.query.sprayName
@@ -49,6 +50,7 @@ router.get('/', async(req, res) => {
    }
 })
 
+// adding friend mpId to db
 router.post('/', async(req, res) => {
    const mpId = req.body.params.mpId // friend mpId
    const sprayName = req.body.params.sprayName

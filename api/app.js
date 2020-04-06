@@ -21,6 +21,7 @@ const ticks = require('./routes/ticks.js')
 const register = require('./routes/register.js')
 const login = require('./routes/login.js')
 const addFriend = require('./routes/addFriend.js')
+const getFriends = require('./routes/getFriends.js')
 
 // import middleware
 // const auth = require('./middleware/auth')
@@ -46,5 +47,6 @@ app.use('/ticks', ticks)
 app.use('/register', register)
 app.use('/login', login)
 app.use('/addFriend', addFriend)
+app.use('/getFriends', getFriends)
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

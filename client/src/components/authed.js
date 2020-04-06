@@ -11,12 +11,15 @@ class authed extends Component {
    constructor(props) {
       super(props)
       this.state = {
-         toastMessage: ''
+         toastMessage: '',
+         sprayName: localStorage.getItem('sprayName'),
+         authToken: localStorage.getItem('authToken')
       }
 
       this.defaultState = this.state
       this.showToast = this.showToast.bind(this)
       this.handleDissmiss = this.handleDissmiss.bind(this)
+
    }
 
    showToast = (message) => {
@@ -51,6 +54,10 @@ class authed extends Component {
             {/* /> */}
             <AddFriend
                showToast= {this.showToast}
+            />
+            <TickList
+               sprayName= {this.state.sprayName}
+               authToken= {this.state.authToken}
             />
          </div>
       )

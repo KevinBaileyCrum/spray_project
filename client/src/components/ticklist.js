@@ -1,28 +1,47 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-const API = 'http://localhost:9000/ticks' // pass this to component from app?
+const API = 'http://localhost:9000/' // pass this to component from app?
 
 class TickList extends Component{
    constructor(props){
       super(props)
       this.state = {
-         ticks: []
+         ticks: [],
+         friendsList: []
       }
    }
 
-   componentDidMount() {
-      axios.get(API, {
-         headers: {
-            'Authorization': `${this.props.authToken}`
+   getFriends = () => {
+      axios.get(API + 'getFriends', {
+         params: {
+            sprayName: `${this.props.sprayName}`
          }
       })
-         .then(res => {
-            const ticks = res.data
-            console.log(ticks)
-            this.setState({ticks})
+         .then(response => {
+            this.setState({
+               friendsList: response.data
+            })
+         })
+         .catch(error => {
+            console.log(error)
          })
    }
+
+   componentDidMount() {
+      this.getFriends()
+      // axios.get(API, {
+      //    headers: {
+      //       'Authorization': `${this.props.authToken}`
+      //    }
+      // })
+      //    .then(res => {
+      //       const ticks = res.data
+      //       console.log(ticks)
+      //       this.setState({ticks})
+      //    })
+   }
+
 
    render() {
       return (
