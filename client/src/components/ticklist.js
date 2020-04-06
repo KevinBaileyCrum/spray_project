@@ -12,8 +12,8 @@ class TickList extends Component{
       }
    }
 
-   getFriends = () => {
-      axios.get(API + 'getFriends', {
+   async getFriends()  {
+      return axios.get(API + 'getFriends', {
          params: {
             sprayName: `${this.props.sprayName}`
          }
@@ -28,20 +28,35 @@ class TickList extends Component{
          })
    }
 
-   componentDidMount() {
-      this.getFriends()
-      // axios.get(API, {
-      //    headers: {
-      //       'Authorization': `${this.props.authToken}`
-      //    }
-      // })
-      //    .then(res => {
-      //       const ticks = res.data
-      //       console.log(ticks)
-      //       this.setState({ticks})
-      //    })
+   async getTicks() {
+      return this.state.friendsList.forEach(async (mpId) => {
+         console.log(mpId)
+         axios.get(API + 'getTicks', {
+            headers: {
+               'Authorization': `${this.props.authToken}`
+            },
+            params: {
+                  mpId: mpId
+            }
+         })
+            .then(response => {
+               const ticks = response.data
+               this.setState({
+                  ticks: this.state.ticks.concat(response.data)
+
+               })
+            })
+            .catch(error => {
+               console.log(error)
+            })
+      })
    }
 
+   async componentDidMount() {
+      await this.getFriends()
+      await this.getTicks()
+      console.log('here')
+   }
 
    render() {
       return (

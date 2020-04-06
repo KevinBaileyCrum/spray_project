@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 const {User} = require('./models/user')
 
 // import endpoints
-const ticks = require('./routes/ticks.js')
+const ticks = require('./routes/getTicks.js')
 const register = require('./routes/register.js')
 const login = require('./routes/login.js')
 const addFriend = require('./routes/addFriend.js')
@@ -43,7 +43,7 @@ db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('connected to database'))
 
 // route endpoints
-app.use('/ticks', ticks)
+app.use('/getTicks', ticks)
 app.use('/register', register)
 app.use('/login', login)
 app.use('/addFriend', addFriend)

@@ -30,7 +30,7 @@ router.post('/', async(req, res) => {
          return res.status(401).send('invalid password')
       }
 
-      const token = jwt.sign({ id: user._id }, JWT_SECRET.secret, { expiresIn: 3600 })
+      const token = jwt.sign({ id: user._id }, JWT_SECRET.secret, { expiresIn: '7d' })
       if (!token) throw Error('could not sign token')
 
       res.status(200).json({

@@ -48,10 +48,6 @@ class authed extends Component {
             />
 
             <p> hello {this.props.sprayName} </p>
-            {/* <TickList */}
-            {/*    sprayName={this.props.sprayName} */}
-            {/*    authToken={this.props.authToken} */}
-            {/* /> */}
             <AddFriend
                showToast= {this.showToast}
             />

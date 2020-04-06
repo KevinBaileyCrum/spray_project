@@ -42,6 +42,9 @@ mpApiGetRoutes = (routeId) => {
             // console.log(response.data.routes)
             return response.data.routes
          })
+         .catch((error) => {
+            console.log('axios error mpApiGetRoutes ' + error)
+         })
    } catch (error) {
       console.error(`mpApiGetRoutes axios error ${error}`)
    }
@@ -49,26 +52,31 @@ mpApiGetRoutes = (routeId) => {
 
 mpApiGetTicks =  (userId) => {
    try {
+      console.log('mpApiGetTicks ' + userId)
       return axios.get('https://www.mountainproject.com/data/get-ticks?', {
          params: {
             userId: userId,
-            key: apiKey.apiKey,
-            startPos: 115
+            key: apiKey.apiKey
          }
       })
          .then((response) => {
             console.log('axios here')
+            console.log(response.data)
             return response.data.ticks
          })
+         .catch((error) => {
+            console.log('axios error mpApiGetTicks ' + error)
+         })
+
    } catch (error) {
       console.error(`mpApiGetTicks axios error ${error}`)
    }
 }
 
 const getTicks =  (userId) => {
+   console.log('getTicks on ' + userId)
    return mpApiGetTicks(userId).then(mpTicksRes=>{
       var tickList = []
-      // console.log(`mpTicksRes ${mpTicksRes}`)
       for (res in mpTicksRes){
          var tick = new TickObj()
          tick.routeId = mpTicksRes[res].routeId
@@ -82,7 +90,6 @@ const getTicks =  (userId) => {
       }
       routes=tickList.map(tick=>mpApiGetRoutes(tick.routeId))
       return Promise.all(routes).then(results=>{
-         //_.zip(results,tickList).forEach((t)
          for (route in results){
             mpRoutesRes=results[route]
             tickList[route].routeName = mpRoutesRes[0].name
@@ -94,17 +101,10 @@ const getTicks =  (userId) => {
 }
 
 router.get('/', auth, function(req, res) {
-   console.log('ticks')
-
-   // assuming already have userID
-   // for friend in friend list
-   //   getTicks(listOfTickObjs)
-   //   for ticks in listOfTickObjs
-   //     getRoute info on tick
-
-   var friendList = ['108543839'] // kevin
-   getTicks(friendList[0]).then((response) => {
-      console.log('here')
+   const mpId = req.query.mpId
+   console.log('ticks for ' + mpId)
+   getTicks(mpId).then((response) => {
+      console.log('then on getTicks ' + mpId)
       res.send(response)
    }).catch(console.log)
 })
