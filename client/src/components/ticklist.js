@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+import TickCard from './tickCard'
+
 const API = 'http://localhost:9000/' // pass this to component from app?
 
 class TickList extends Component{
@@ -29,7 +31,7 @@ class TickList extends Component{
    }
 
    async getTicks() {
-      return this.state.friendsList.forEach(async (mpId) => {
+      this.state.friendsList.forEach(async (mpId) => {
          console.log(mpId)
          axios.get(API + 'getTicks', {
             headers: {
@@ -62,19 +64,14 @@ class TickList extends Component{
       return (
          <div className="tick-card-list">
             { this.state.ticks.map(tick =>
-            <div className="tick-card-item" key={tick.tickId}>
-               <div className="tick-card">
-                  <div className="tick-card-content">
-                     <div className="tick-card-userName">{tick.userName}</div>
-                     <div className="tick-card-date">{tick.date}</div>
-                     <div className="tick-card-style">{tick.style}</div>
-                     <div className="tick-card-notes">{tick.notes}</div>
-                     <div className="tick-card-stars">{tick.stars}</div>
-                     <div className="tick-card-routeName">{tick.routeName}</div>
-                     <div className="tick-card-routeGrade">{tick.routeGrade}</div>
-                  </div>
-               </div>
-            </div>
+               <TickCard
+                  // routeImg = {tick.routeImg}
+                  // routeName = {tick.routeName}
+                  // routeGrade = {tick.routeGrade}
+                  // style = {tick.syle}
+                  // date = {tick.date}
+                  tick = {tick}
+               />
             )}
          </div>
       )

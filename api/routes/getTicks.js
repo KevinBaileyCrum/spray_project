@@ -16,6 +16,7 @@ function TickObj(
    stars = null,
    routeName = null, // route api vvv
    routeGrade = null,
+   routeImg = null,
    tickId = null
 ){
    this.userName = userName
@@ -26,6 +27,7 @@ function TickObj(
    this.stars = stars
    this.routeName = routeName
    this.routeGrade = routeGrade
+   this.routeImg = routeImg
    this.tickId = tickId
 }
 
@@ -94,6 +96,7 @@ const getTicks =  (userId) => {
             mpRoutesRes=results[route]
             tickList[route].routeName = mpRoutesRes[0].name
             tickList[route].routeGrade = mpRoutesRes[0].rating
+            tickList[route].routeImg = mpRoutesRes[0].imgSmall
          }
          return tickList
       })
