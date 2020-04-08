@@ -22,6 +22,9 @@ class TickList extends Component{
 
    getFriends()  {
       return axios.get(API + 'getFriends', {
+         headers: {
+            'Authorization': `${this.props.authToken}`
+         },
          params: {
             sprayName: `${this.props.sprayName}`
          }
@@ -49,8 +52,8 @@ class TickList extends Component{
          })
             .then(response => {
                this.setState({
-                  ticks: this.state.ticks.concat(response.data)
-
+                  ticks: this.state.ticks.concat(response.data),
+                  isLoading: false
                })
             })
             .catch(error => {
@@ -62,14 +65,15 @@ class TickList extends Component{
    async componentDidMount() {
       await this.getFriends()
       await this.getTicks()
-      console.log('here')
-      this.setState({ isLoading: false })
    }
 
-   // componentDidUpdate() {
-   //    console.log('updated')
-   //    return
-   // }
+   async componentDidUpdate(prevProps) {
+      if (this.props.updatedInteger !== prevProps.updatedInteger) {
+         await this.getFriends()
+         await this.getTicks()
+      }
+   }
+
 
    render() {
       return (
@@ -78,7 +82,7 @@ class TickList extends Component{
                (<IonSpinner/>)
             :
                (
-                  this.state.ticks.map(tick =>
+                  this.state.ticks.sort((a,b) => a.data - b.data).map(tick =>
                      <div key = {tick.tickId}>
                         <TickCard
                            tick = {tick}

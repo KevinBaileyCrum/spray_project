@@ -1,9 +1,10 @@
-// TODO add middleware to post request when ready
-// 200432149
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 const apiKey = require('./apiKey')
+
+// import middleware
+const auth = require('../middleware/auth')
 
 const User = require('../models/user')
 
@@ -18,7 +19,7 @@ function FriendObj(
 }
 
 // calls mountain project get user api for populating add friend card
-router.get('/', async(req, res) => {
+router.get('/', auth, async(req, res) => {
    const mpId = req.query.mpId
    const sprayName = req.query.sprayName
    try {
@@ -51,13 +52,9 @@ router.get('/', async(req, res) => {
 })
 
 // adding friend mpId to db
-router.post('/', async(req, res) => {
-   const mpId = req.body.params.mpId // friend mpId
-   const sprayName = req.body.params.sprayName
-   console.log(req.body)
-   console.log(req.body.params.mpId)
-   console.log(req.body.params.sprayName)
-   console.log(req.body.params)
+router.post('/', auth, async(req, res) => {
+   const mpId = req.query.mpId // friend mpId
+   const sprayName = req.query.sprayName
 
    try {
       const user = await User.findOneAndUpdate(

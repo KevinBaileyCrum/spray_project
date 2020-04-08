@@ -87,6 +87,9 @@ class AddFriend extends Component {
       const isValid = this.validate()
       if (isValid) {
          axios.get(API, {
+            headers: {
+               'Authorization': `${this.props.authToken}`
+            },
             params: {
                // pass auth creds here
                mpId: this.state.mpId
@@ -119,9 +122,11 @@ class AddFriend extends Component {
 
    handleAddFriend = () => {
       let sprayName = localStorage.getItem('sprayName')
-      axios.post(API, {
+      axios.post(API, null,{
+         headers: {
+            'Authorization': `${this.props.authToken}`
+         },
          params: {
-            // pass auth creds here
             mpId: this.state.mpId,
             sprayName: sprayName
          }
@@ -132,6 +137,7 @@ class AddFriend extends Component {
             console.log('message ' + message)
             this.setState(this.defaultState)
             this.props.showToast(message)
+            this.props.isUpdated()
          })
          .catch(error => {
             console.log('error on post')

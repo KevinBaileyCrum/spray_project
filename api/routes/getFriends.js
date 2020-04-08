@@ -2,9 +2,12 @@ const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 
+// import middleware
+const auth = require('../middleware/auth')
+
 const User = require('../models/user')
 
-router.get('/', async(req, res) => {
+router.get('/', auth, async(req, res) => {
    const sprayName = req.query.sprayName
    try {
       const user = await User.findOne({sprayName})

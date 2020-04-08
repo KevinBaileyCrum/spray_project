@@ -58,6 +58,10 @@ class App extends Component {
       }
    }
 
+   jwtExpireHandler() {
+      localStorage.clear()
+   }
+
    render() {
       return (
          <IonApp>
@@ -73,6 +77,7 @@ class App extends Component {
                               authToken={this.state.authToken}
                               sprayName={this.state.sprayName}
                               loginUpdate={this.loginUpdate}
+                              jwtExpireHandler={this.jwtExpireHandler}
                            />
                            :
                            <LogRegSlider
