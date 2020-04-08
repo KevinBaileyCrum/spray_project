@@ -10,9 +10,6 @@ import {
 } from '@ionic/react'
 
 class FriendCard extends Component {
-   constructor(props) {
-      super(props)
-   }
 
    render() {
       return (
@@ -22,7 +19,6 @@ class FriendCard extends Component {
                   <IonImg src={this.props.friendObj.avatar} />
                </IonAvatar>
                <IonCardHeader>
-                  {/* Kevin Crum */}
                   {this.props.friendObj.name}
                </IonCardHeader>
                <IonCardHeader>

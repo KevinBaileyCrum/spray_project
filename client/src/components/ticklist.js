@@ -3,18 +3,24 @@ import axios from 'axios'
 
 import TickCard from './tickCard'
 
+import {
+   IonSpinner,
+   IonContent
+} from '@ionic/react'
+
 const API = 'http://localhost:9000/' // pass this to component from app?
 
 class TickList extends Component{
    constructor(props){
       super(props)
       this.state = {
+         isLoading: true,
          ticks: [],
          friendsList: []
       }
    }
 
-   async getFriends()  {
+   getFriends()  {
       return axios.get(API + 'getFriends', {
          params: {
             sprayName: `${this.props.sprayName}`
@@ -30,7 +36,7 @@ class TickList extends Component{
          })
    }
 
-   async getTicks() {
+   getTicks() {
       this.state.friendsList.forEach(async (mpId) => {
          console.log(mpId)
          axios.get(API + 'getTicks', {
@@ -42,7 +48,6 @@ class TickList extends Component{
             }
          })
             .then(response => {
-               const ticks = response.data
                this.setState({
                   ticks: this.state.ticks.concat(response.data)
 
@@ -58,24 +63,41 @@ class TickList extends Component{
       await this.getFriends()
       await this.getTicks()
       console.log('here')
+      this.setState({ isLoading: false })
    }
+
+   // componentDidUpdate() {
+   //    console.log('updated')
+   //    return
+   // }
 
    render() {
       return (
-         <div className="tick-card-list">
-            { this.state.ticks.map(tick =>
-               <TickCard
-                  // routeImg = {tick.routeImg}
-                  // routeName = {tick.routeName}
-                  // routeGrade = {tick.routeGrade}
-                  // style = {tick.syle}
-                  // date = {tick.date}
-                  tick = {tick}
-               />
-            )}
+         <div>
+            {this.state.isLoading ?
+               (<IonSpinner/>)
+            :
+               (
+                  this.state.ticks.map(tick =>
+                     <div key = {tick.tickId}>
+                        <TickCard
+                           tick = {tick}
+                        />
+                     </div>
+                  )
+               )
+            }
          </div>
       )
    }
+
+   // render() {
+   //    return (
+   //       <div>
+   //          <IonSpinner/>
+   //       </div>
+   //    )
+   // }
 }
 
 export default TickList

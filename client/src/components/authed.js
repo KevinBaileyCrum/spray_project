@@ -35,22 +35,22 @@ class authed extends Component {
    render() {
       return (
          <div>
-            <IonToast
-               isOpen= {this.state.toastMessage !== ''}
-               header= 'Success'
-               message= {this.state.toastMessage}
-               buttons= {[
-                  {
-                     text: 'OK',
-                     handler: this.handleDissmiss
-                  }
-               ]}
-            />
+            {/* <IonToast */}
+            {/*    isOpen= {this.state.toastMessage !== ''} */}
+            {/*    header= 'Success' */}
+            {/*    message= {this.state.toastMessage} */}
+            {/*    buttons= {[ */}
+            {/*       { */}
+            {/*          text: 'OK', */}
+            {/*          handler: this.handleDissmiss */}
+            {/*       } */}
+            {/*    ]} */}
+            {/* /> */}
 
-            <p> hello {this.props.sprayName} </p>
-            <AddFriend
-               showToast= {this.showToast}
-            />
+            {/* <p> hello {this.props.sprayName} </p> */}
+            {/* <AddFriend */}
+            {/*    showToast= {this.showToast} */}
+            {/* /> */}
             <TickList
                sprayName= {this.state.sprayName}
                authToken= {this.state.authToken}
