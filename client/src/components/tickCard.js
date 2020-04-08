@@ -4,6 +4,7 @@ import {
    IonContent,
    IonCard,
    IonCardContent,
+   IonCardTitle,
    IonCardSubtitle,
    IonAvatar,
    IonImg,
@@ -16,10 +17,32 @@ import {
 } from 'ionicons/icons'
 
 class TickCard extends Component {
-
    render() {
       return (
-         this.props.tick.routeName
+         <IonCard>
+
+            <IonImg src={this.props.tick.routeImg} />
+            <IonAvatar>
+               <IonImg src={this.props.tick.userImg} />
+            </IonAvatar>
+            <IonText>
+               {this.props.tick.userName}
+            </IonText>
+            <IonCardTitle>
+               {this.props.tick.routeName} : {this.props.tick.routeGrade}
+            </IonCardTitle>
+
+            <IonCardSubtitle>
+               Route Style:
+            </IonCardSubtitle>
+            <p> {this.props.tick.style} </p>
+
+            <IonCardSubtitle>
+               Route Date:
+            </IonCardSubtitle>
+            <p> {this.props.tick.date} </p>
+
+         </IonCard>
       )
    }
 }

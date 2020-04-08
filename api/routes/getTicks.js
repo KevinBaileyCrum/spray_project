@@ -9,6 +9,7 @@ const auth = require('../middleware/auth')
 
 function TickObj(
    userName = null, // getUser api
+   userImg = null,
    routeId = null,  // tick api vvv
    date = null,
    style  = null,
@@ -20,6 +21,7 @@ function TickObj(
    tickId = null
 ){
    this.userName = userName
+   this.userImg = userImg
    this.routeId = routeId
    this.date = date
    this.style = style
@@ -75,12 +77,14 @@ mpApiGetTicks =  (userId) => {
    }
 }
 
-const getTicks =  (userId) => {
+const getTicks = (userId, user) => {
    console.log('getTicks on ' + userId)
    return mpApiGetTicks(userId).then(mpTicksRes=>{
       var tickList = []
       for (res in mpTicksRes){
          var tick = new TickObj()
+         tick.userName = user.userName
+         tick.userImg = user.userImg
          tick.routeId = mpTicksRes[res].routeId
          tick.date = mpTicksRes[res].date
          tick.style = mpTicksRes[res].style
@@ -96,17 +100,38 @@ const getTicks =  (userId) => {
             mpRoutesRes=results[route]
             tickList[route].routeName = mpRoutesRes[0].name
             tickList[route].routeGrade = mpRoutesRes[0].rating
-            tickList[route].routeImg = mpRoutesRes[0].imgSmall
+            tickList[route].routeImg = mpRoutesRes[0].imgSqSmall
          }
          return tickList
       })
    })
 }
 
-router.get('/', auth, function(req, res) {
+const getUser = async (mpId) => {
+   return axios.get('https://www.mountainproject.com/data/get-user?', {
+      params: {
+         userId: mpId,
+         key: apiKey.apiKey
+      }
+   })
+      .then(response => {
+         const user = {
+            userName: response.data.name,
+            userImg: response.data.avatar
+         }
+         console.log(user)
+         return user
+      })
+      .catch(error => {
+         console.log(response.error)
+      })
+}
+
+router.get('/', async (req, res) => {
    const mpId = req.query.mpId
    console.log('ticks for ' + mpId)
-   getTicks(mpId).then((response) => {
+   const user = await getUser(mpId)
+   getTicks(mpId, user).then((response) => {
       console.log('then on getTicks ' + mpId)
       res.send(response)
    }).catch(console.log)
