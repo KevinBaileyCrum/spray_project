@@ -76,13 +76,18 @@ class TickList extends Component{
 
 
    render() {
+      const sortedTicklist = this.state.ticks.sort((a,b) => {
+         return new Date(b.date) - new Date(a.date)
+      })
+      console.log(sortedTicklist)
       return (
          <div>
             {this.state.isLoading ?
                (<IonSpinner/>)
             :
                (
-                  this.state.ticks.sort((a,b) => a.data - b.data).map(tick =>
+                  sortedTicklist.map(tick =>
+                  // this.state.ticks.sort((a,b) => a.date - b.date).map(tick =>
                      <div key = {tick.tickId}>
                         <TickCard
                            tick = {tick}
@@ -95,13 +100,6 @@ class TickList extends Component{
       )
    }
 
-   // render() {
-   //    return (
-   //       <div>
-   //          <IonSpinner/>
-   //       </div>
-   //    )
-   // }
 }
 
 export default TickList

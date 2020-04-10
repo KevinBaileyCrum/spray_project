@@ -24,7 +24,7 @@ class authed extends Component {
 
    isUpdated = () => {
       this.setState({
-         updatedInteger: ++this.state.updatedInteger
+         updatedInteger: this.state.updatedInteger + 1
       })
    }
 

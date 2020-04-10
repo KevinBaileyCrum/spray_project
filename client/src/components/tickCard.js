@@ -21,10 +21,10 @@ class TickCard extends Component {
       return (
          <IonCard>
 
-            <IonImg src={this.props.tick.routeImg} />
-            <IonAvatar>
-               <IonImg src={this.props.tick.userImg} />
-            </IonAvatar>
+            {/* <IonImg src={this.props.tick.routeImg} /> */}
+            {/* <IonAvatar> */}
+            {/*    <IonImg src={this.props.tick.userImg} /> */}
+            {/* </IonAvatar> */}
             <IonText>
                {this.props.tick.userName}
             </IonText>
