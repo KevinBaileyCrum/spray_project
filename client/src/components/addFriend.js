@@ -1,10 +1,3 @@
-// TODO: change toggleModal to modal open and modal close separate methods
-//    error messages for when api returns invalid userid
-//
-//    show user card
-//    confirmation: allow add or dismiss....if i do that ill change logic in endpoint and not
-//    update db until confirmation
-
 import React, { Component } from 'react'
 import axios from 'axios'
 
@@ -91,7 +84,6 @@ class AddFriend extends Component {
                'Authorization': `${this.props.authToken}`
             },
             params: {
-               // pass auth creds here
                mpId: this.state.mpId
             }
          })
@@ -121,23 +113,20 @@ class AddFriend extends Component {
    }
 
    handleAddFriend = () => {
-      let sprayName = localStorage.getItem('sprayName')
       axios.post(API, null,{
          headers: {
             'Authorization': `${this.props.authToken}`
          },
          params: {
             mpId: this.state.mpId,
-            sprayName: sprayName
+            sprayName: this.props.sprayName
          }
       })
          .then(response => {
-            console.log(response.data)
             const message = this.state.friendObj.name + ' has been added to your friends list!'
-            console.log('message ' + message)
-            this.setState(this.defaultState)
             this.props.showToast(message)
-            this.props.isUpdated()
+            this.props.handleNewFriend(this.state.mpId)
+            this.setState(this.defaultState)
          })
          .catch(error => {
             console.log('error on post')

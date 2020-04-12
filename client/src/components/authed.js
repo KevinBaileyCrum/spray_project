@@ -12,19 +12,20 @@ class authed extends Component {
       super(props)
       this.state = {
          toastMessage: '',
-         updatedInteger: 0
+         newFriendMpId: 0
       }
 
       this.defaultState = this.state
       this.showToast = this.showToast.bind(this)
       this.handleDissmiss = this.handleDissmiss.bind(this)
-      this.isUpdated = this.isUpdated.bind(this)
+      this.handleNewFriend = this.handleNewFriend.bind(this)
 
    }
 
-   isUpdated = () => {
+   handleNewFriend = (newFriendMpId) => {
+      console.log('handling of new friend: ' + newFriendMpId)
       this.setState({
-         updatedInteger: this.state.updatedInteger + 1
+         newFriendMpId: newFriendMpId
       })
    }
 
@@ -56,12 +57,12 @@ class authed extends Component {
             <p> hello {this.props.sprayName} </p>
             <AddFriend
                showToast= {this.showToast}
-               isUpdated= {this.isUpdated}
+               handleNewFriend= {this.handleNewFriend}
                sprayName= {this.props.sprayName}
                authToken= {this.props.authToken}
             />
             <TickList
-               updatedInteger= {this.state.updatedInteger}
+               newFriendMpId= {this.state.newFriendMpId}
                sprayName= {this.props.sprayName}
                authToken= {this.props.authToken}
             />

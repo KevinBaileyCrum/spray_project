@@ -39,8 +39,8 @@ class TickList extends Component{
          })
    }
 
-   getTicks() {
-      this.state.friendsList.forEach(async (mpId) => {
+   getTicks(friendsList) {
+      friendsList.forEach(async (mpId) => {
          console.log(mpId)
          axios.get(API + 'getTicks', {
             headers: {
@@ -64,13 +64,15 @@ class TickList extends Component{
 
    async componentDidMount() {
       await this.getFriends()
-      await this.getTicks()
+      await this.getTicks(this.state.friendsList)
    }
 
    async componentDidUpdate(prevProps) {
-      if (this.props.updatedInteger !== prevProps.updatedInteger) {
-         await this.getFriends()
-         await this.getTicks()
+      if (this.props.newFriendMpId !== prevProps.newFriendMpId) {
+         this.setState({
+            friendsList: [...this.state.friendsList, this.props.newFriendMpId]
+         })
+         await this.getTicks([this.props.newFriendMpId]) // add new ticks
       }
    }
 
@@ -87,7 +89,6 @@ class TickList extends Component{
             :
                (
                   sortedTicklist.map(tick =>
-                  // this.state.ticks.sort((a,b) => a.date - b.date).map(tick =>
                      <div key = {tick.tickId}>
                         <TickCard
                            tick = {tick}
