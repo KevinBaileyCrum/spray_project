@@ -5,7 +5,8 @@ import {
    IonSegment,
    IonSegmentButton,
    IonToolbar,
-   IonToast
+   IonToast,
+   IonContent
 } from '@ionic/react'
 
 import Login from './login'

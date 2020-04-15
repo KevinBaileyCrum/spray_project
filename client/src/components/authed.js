@@ -4,8 +4,18 @@ import TickList from './ticklist'
 import AddFriend from './addFriend'
 
 import {
-   IonToast
+   IonToast,
+   IonToolbar,
+   IonHeader,
+   IonIcon,
+   IonButtons,
+   IonButton,
+   IonTitle
 } from '@ionic/react'
+
+import {
+   person
+} from 'ionicons/icons'
 
 class authed extends Component {
    constructor(props) {
@@ -42,6 +52,27 @@ class authed extends Component {
    render() {
       return (
          <div>
+            <IonHeader>
+               <IonToolbar>
+                  <IonIcon
+                     icon={person}
+                     slot='start'
+                  />
+                  <IonTitle>
+                     {this.props.sprayName}
+                  </IonTitle>
+                  <IonButtons
+                     slot='end'
+                  >
+                     <IonButton
+                        onClick={this.props.logout}
+                     >
+                        Logout
+                     </IonButton>
+                  </IonButtons>
+               </IonToolbar>
+            </IonHeader>
+
             <IonToast
                isOpen= {this.state.toastMessage !== ''}
                header= 'Success'
@@ -49,12 +80,11 @@ class authed extends Component {
                buttons= {[
                   {
                      text: 'OK',
-                     handler: this.handleDissmiss
+                        handler: this.handleDissmiss
                   }
                ]}
             />
 
-            <p> hello {this.props.sprayName} </p>
             <AddFriend
                showToast= {this.showToast}
                handleNewFriend= {this.handleNewFriend}

@@ -31,8 +31,9 @@ class App extends Component {
          authToken: '',
          sprayName: '',
       }
-
+      this.defaultState = this.state
       this.loginUpdate = this.loginUpdate.bind(this)
+      this.logout = this.logout.bind(this)
    }
 
    componentDidMount() {
@@ -62,29 +63,38 @@ class App extends Component {
       localStorage.clear()
    }
 
+   logout = () => {
+      localStorage.clear()
+      this.setState(this.defaultState)
+      console.log('logout clicked')
+      window.location.reload(false)
+   }
+
+
    render() {
       return (
          <IonApp>
             <IonReactRouter>
                <IonRouterOutlet>
                   <IonContent>
-                  <Route
-                     path  = '*'
-                     render = { () => {
-                        console.log('isAuthed '+this.state.isAuthed)
-                        return (this.state.isAuthed === true ?
-                           <Authed
-                              authToken={this.state.authToken}
-                              sprayName={this.state.sprayName}
-                              loginUpdate={this.loginUpdate}
-                              jwtExpireHandler={this.jwtExpireHandler}
-                           />
-                           :
-                           <LogRegSlider
-                              loginUpdate={this.loginUpdate}
-                           />)
-                     }}
-                  />
+                     <Route
+                        path  = '*'
+                        render = { () => {
+                           console.log('isAuthed '+this.state.isAuthed)
+                           return (this.state.isAuthed === true ?
+                              <Authed
+                                 authToken={this.state.authToken}
+                                 sprayName={this.state.sprayName}
+                                 loginUpdate={this.loginUpdate}
+                                 jwtExpireHandler={this.jwtExpireHandler}
+                                 logout={this.logout}
+                              />
+                              :
+                              <LogRegSlider
+                                 loginUpdate={this.loginUpdate}
+                              />)
+                        }}
+                     />
                   </IonContent>
                </IonRouterOutlet>
             </IonReactRouter>
