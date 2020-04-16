@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 import TickList from './ticklist'
 import AddFriend from './addFriend'
+import Header from './header'
 import ManageFriends from './manageFriends'
 
 import {
@@ -18,11 +20,13 @@ import {
    person
 } from 'ionicons/icons'
 
+const API = 'http://localhost:9000/'
 class authed extends Component {
    constructor(props) {
       super(props)
       this.state = {
          toastMessage: '',
+         friendsList: [],
          newFriendMpId: 0
       }
 
@@ -30,13 +34,15 @@ class authed extends Component {
       this.showToast = this.showToast.bind(this)
       this.handleDissmiss = this.handleDissmiss.bind(this)
       this.handleNewFriend = this.handleNewFriend.bind(this)
+      this.getFriends = this.getFriends.bind(this)
 
    }
 
    handleNewFriend = (newFriendMpId) => {
       console.log('handling of new friend: ' + newFriendMpId)
       this.setState({
-         newFriendMpId: newFriendMpId
+         newFriendMpId: newFriendMpId,
+         friendsList: [...this.state.friendsList, newFriendMpId]
       })
    }
 
@@ -50,30 +56,31 @@ class authed extends Component {
       this.setState(this.defaultState)
    }
 
+   getFriends()  {
+      return axios.get(API + 'getFriends', {
+         headers: {
+            'Authorization': `${this.props.authToken}`
+         },
+         params: {
+            sprayName: `${this.props.sprayName}`
+         }
+      })
+         .then(response => {
+            this.setState({
+               friendsList: response.data
+            })
+         })
+         .catch(error => {
+            console.log(error)
+         })
+   }
+
    render() {
       return (
          <div>
-            <IonHeader>
-               <IonToolbar>
-                  <IonIcon
-                     icon={person}
-                     slot='start'
-                  />
-                  <IonTitle>
-                     {this.props.sprayName}
-                  </IonTitle>
-                  <IonButtons
-                     slot='end'
-                  >
-                     <IonButton
-                        onClick={this.props.logout}
-                     >
-                        Logout
-                     </IonButton>
-                     <ManageFriends />
-                  </IonButtons>
-               </IonToolbar>
-            </IonHeader>
+            <Header
+               logout= {this.props.logout}
+            />
 
             <IonToast
                isOpen= {this.state.toastMessage !== ''}
@@ -97,6 +104,8 @@ class authed extends Component {
                newFriendMpId= {this.state.newFriendMpId}
                sprayName= {this.props.sprayName}
                authToken= {this.props.authToken}
+               friendsList= {this.state.friendsList}
+               getFriends= {this.getFriends}
             />
          </div>
       )
