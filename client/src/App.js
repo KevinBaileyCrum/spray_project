@@ -63,7 +63,7 @@ class App extends Component {
       localStorage.clear()
    }
 
-   logout = () => {
+   logout() {
       localStorage.clear()
       this.setState(this.defaultState)
       console.log('logout clicked')

@@ -42,6 +42,11 @@ class AddFriend extends Component {
 
    }
 
+   componentWillUnmount() {
+      console.log('i have dismounted')
+      this.setState(this.defaultState)
+   }
+
    validate = () => {
       let error = ''
 
@@ -161,6 +166,7 @@ class AddFriend extends Component {
             <IonButton expand='block' onClick={this.modalOn}> Add Friend </IonButton>
             <IonModal
                isOpen={this.state.modalOpen}
+               onDidDismiss={this.modalOff}
             >
                <IonToast
                   isOpen= {this.state.error !== ''}

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import TickList from './ticklist'
 import AddFriend from './addFriend'
+import ManageFriends from './manageFriends'
 
 import {
    IonToast,
@@ -69,6 +70,7 @@ class authed extends Component {
                      >
                         Logout
                      </IonButton>
+                     <ManageFriends />
                   </IonButtons>
                </IonToolbar>
             </IonHeader>
