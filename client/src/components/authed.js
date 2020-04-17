@@ -79,7 +79,9 @@ class authed extends Component {
       return (
          <div>
             <Header
+               sprayName= {this.props.sprayName}
                logout= {this.props.logout}
+               friendsList= {this.state.friendsList}
             />
 
             <IonToast

@@ -19,7 +19,6 @@ router.post('/', async(req, res) => {
    const email = req.body.email
    const password = req.body.password
    try {
-      console.log(req.body)
       const user = await User.findOne({email})
       if (!user) {
          return res.status(401).send('invalid user')

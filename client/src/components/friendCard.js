@@ -15,7 +15,6 @@ class FriendCard extends Component {
       return (
          <IonCard>
                <IonAvatar>
-                  {/* <IonImg src='https://www.mountainproject.com/photos/avatars/108543839.jpg?1573274398' /> */}
                   <IonImg src={this.props.friendObj.avatar} />
                </IonAvatar>
                <IonCardHeader>
