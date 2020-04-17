@@ -8,11 +8,11 @@ Mountain Project is great and one of my favorite aspects of the site that Ive be
 It is made with express backend, react frontend and mongoDB.  I feel like in hindsight the whole thing could have been built using soley React.js or Express.js as they are both sophisticated enough to meet the project's requirements however I've always wanted to work with both Express and React and I figured now is the chance.
 
 ## Technologies Used:
-Express.js
-React.js
-Json Web Token
-MongoDB and Mongoose
-Ionic Framework
+* Express.js
+* React.js
+* Json Web Token
+* MongoDB and Mongoose
+* Ionic Framework
 
 ### Express Backend
 cd ./api run `npm run start-dev`
