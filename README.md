@@ -5,7 +5,7 @@
 ## About
 Mountain Project is great and one of my favorite aspects of the site that Ive been playing with this past year involves ticking climbs.  One thing that is missing is a news feed for when your friends tick climbs.  Spray Project lets you add friends and see what they have been ticking.  
 
-It is made with express backend, react frontend and mongoDB.  I feel like in hindsight the whole thing could have been built using soley React.js or Express.js as they are both sophisticated enough to meet the project's requirements however I've always wanted to work with both Express and React and I figured now is the chance.
+I'm surprised something like this does not exist within Mountain Project and I would love for them to add a feature such as this.  There is more funcionality that could be added to augment the spray experience such as a method of congradulating friends on their ticks.  Unfortunatly that lies outside the scope of Mountain Project's API and would require hackey screen scraping and injecting users' passwords to go headless and send a message.
 
 ## Technologies Used:
 * Express.js
@@ -14,7 +14,12 @@ It is made with express backend, react frontend and mongoDB.  I feel like in hin
 * MongoDB and Mongoose
 * Ionic Framework
 
+I feel like in hindsight the whole thing could have been built using soley React.js or Express.js as they are both sophisticated enough to meet the project's requirements however I've always wanted to work with both Express and React working together and I figured now is the chance.
+
+
 ### Express Backend
+fill in your own API key for Mountain Project endpoints used in `api/routes/ticks.js`
+provide own secret for signing Json Web Token in the auth middleware
 cd ./api run `npm run start-dev`
 runs port 9000
 ### MongoDB
