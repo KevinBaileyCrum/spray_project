@@ -1,4 +1,7 @@
 # Spray Project
+
+![Alt Text](https://media.giphy.com/media/cPm1n4rcPApuzZOzQg/giphy.gif)
+
 Is currently a work in progress.
 Mountain Project is great and one of my favorite aspects of the site that Ive been playing with this past year involves ticking climbs.  One thing that is missing is a news feed for when your friends tick climbs.  Spray Project lets you add friends and see what they have been ticking.  
 
