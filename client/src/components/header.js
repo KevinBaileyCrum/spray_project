@@ -6,40 +6,75 @@ import {
    IonIcon,
    IonTitle,
    IonButtons,
-   IonButton
+   IonButton,
+   IonPopover,
+   IonList,
+   IonItem,
+   IonLabel
 } from '@ionic/react'
 
 import {
-   person
+   person,
+   chevronDown
 } from 'ionicons/icons'
 
 class Header extends Component {
+   constructor(props) {
+      super(props)
+      this.state = {
+         showPopover: false
+      }
+      this.togglePopover = this.togglePopover.bind(this)
+      this.defaultState = this.state
+   }
+
+   togglePopover = () => {
+      this.setState({
+         showPopover: !this.state.showPopover
+      })
+   }
+
    render(){
       return(
          <div>
             <IonHeader>
                <IonToolbar>
-                  <IonIcon
-                     icon={person}
-                     slot='start'
-                  />
                   <IonTitle>
-                     {/* {this.props.sprayName} */}
-                     title
+                     Spray Project
                   </IonTitle>
                   <IonButtons
                      slot='end'
                   >
                      <IonButton
-                        onClick={this.props.logout}
+                        onClick={this.togglePopover}
                      >
-                        Logout
+                        {this.props.sprayName}
+                        <IonIcon icon={chevronDown} />
                      </IonButton>
                   </IonButtons>
                </IonToolbar>
             </IonHeader>
-         </div>
 
+            <IonPopover
+               isOpen= {this.state.showPopover}
+               onDidDismiss= {this.togglePopover}
+            >
+               <IonList>
+                  <IonItem>
+                     <IonLabel>
+                        Manage Friends
+                     </IonLabel>
+                  </IonItem>
+                  <IonItem>
+                     <IonButton
+                        onClick={this.props.logout}
+                     >
+                        Logout
+                     </IonButton>
+                  </IonItem>
+               </IonList>
+            </IonPopover>
+         </div>
       )
    }
 }
