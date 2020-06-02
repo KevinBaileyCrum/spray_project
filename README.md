@@ -35,3 +35,5 @@ I am open to any suggestions or pull requests
 
 #### Deployment
 I hope to deploy this project soon once it is up and running but feel free to clone and check it out as is. 
+
+#### Spray Project does not use semi-colons.  If a language allows for you not to use them and you do not have good reason to use them, why use them?  
