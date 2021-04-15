@@ -7,6 +7,9 @@ Mountain Project is great and one of my favorite aspects of the site that Ive be
 
 I'm surprised something like this does not exist within Mountain Project and I would love for them to add a feature such as this.  There is more funcionality that could be added to augment the spray experience such as a method of congradulating friends on their ticks.  Unfortunatly that lies outside the scope of Mountain Project's API and would require hackey screen scraping and injecting users' passwords to go headless and send a message.
 
+## Note of Deprecation 
+At the end of 2020 Mountain Project was purchased by OnX and the public api was shut down.  This application, like many others reliant on public apis is now out of order.  To all the users of Spray Project good luck with spraying using other means, perhaps I'll over hear you, the old fassioned way, in the meadow. 
+
 ## Technologies Used:
 * Express.js
 * React.js
